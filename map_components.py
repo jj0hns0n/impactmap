@@ -31,6 +31,9 @@ class GMT:
         os.system('gmtset ANNOT_OFFSET_PRIMARY = 0.15c PLOT_DEGREE_FORMAT ddd:mm:ss')
         os.system('gmtset BASEMAP_TYPE = plain')
 
+        # FIXME: Need to sort out GMT command for setting global projection
+        # and bounding box globally
+
     def population_legend(self):
         """Generate legend for population density
         """
@@ -45,15 +48,12 @@ class GMT:
         # Plot legend
         filename = 'population_legend.eps'
 
-
         # Some options hardwired for the purpose of this example
         #options = '-Dx0.2i/0.9i/1.5i/0.9i/TL -J -R -P'
         R = '94.9765016667/101.066/0.053/6.06944566667'
         J = 'Q4.75i'
         options = '-Dx0.2i/0.9i/1.5i/0.9i/TL -J%s -R%s -P' % (J, R)
-        print options
         cmd = 'pslegend %s %s' % (options, legend_filename)
-        print cmd
         os.system('%s > %s' % (cmd, filename))
 
         # Return generated filename
@@ -82,12 +82,10 @@ class GMT:
                                              'topo_grad.grd',
                                              options,
                                              palette_filename)
-        print cmd
         os.system('%s > %s' % (cmd, minimap_filename))
 
         options = '-O -P -JM2.5i -W1.5p,red -R94/143/-12/7'
         cmd = 'psxy %s %s' % (options, inset_filename)
-        print cmd
         os.system('%s >> %s' % (cmd, minimap_filename))
 
         # Return generated filename

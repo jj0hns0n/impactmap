@@ -2,7 +2,8 @@
 """
 
 # Template for population legend
-# Use with font, fontsize (x4)
+# Use string interpolation as follows
+# PLTEMPLATE % ((font, fontsize)*4))
 PLTEMPLATE = """
 H 8 1 Population per square km
 D 0 1p
