@@ -32,7 +32,7 @@ class GMT:
         os.system('gmtset BASEMAP_TYPE = plain')
 
         # FIXME: Need to sort out GMT command for setting global projection
-        # and bounding box globally
+        # and bounding box globally.
 
     def population_legend(self):
         """Generate legend for population density

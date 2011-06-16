@@ -8,22 +8,31 @@ from xml.dom import minidom
 import list_historical_events
 import cities_on_map
 event = sys.argv[1]
-pop_file = '../../../DATA/Landscan2008/landscan2008.grd'
-images_path = '../../lib/images/'
-mi_cpt = '../../lib/mapping/mi.cpt'
-mi_scale_cpt = '../../lib/mapping/mi_scale.cpt'
-path = '../../data/' + event + '/output/'
-event_path = '../../data/' + event + '/input/'
-mmi_file = '../../data/' + event + '/output/mi.grd'
-cities_file ='../../../DATA/Indonesia.txt'
-topo_grd = '../../../DATA/GEBCO/Indonesia.topobath.1m.grd'
-topo_grad = '../../../DATA/GEBCO/topo_grad.grd'
-disclaimer = '../../data/' + event + '/input/' + event + '.disclaimer.txt'
+
+shakedata_dir = os.environ['SHAKEDATA']
+library_dir = os.environ['IMPACTLIB']
+
+pop_file = os.path.join(library_dir, 'population', 'landscan2008.grd')
+images_path = os.path.join(library_dir, 'images')
+mi_cpt = os.path.join(library_dir, 'palettes', 'mi.cpt')
+mi_scale_cpt = os.path.join(library_dir, 'palettes', 'mi_scale.cpt')
+
+output_path = os.path.join(shakedata_dir, event, 'output')
+mmi_file = os.path.join(output_path, 'mi.grd')
+foutfile = os.path.join(output_path, 'event_footprint.txt')
+
+cities_file = os.path.join(library_dir, 'cities', 'Indonesia.txt')
+topo_grd = os.path.join(library_dir, 'topography', 'Indonesia.topobath.1m.grd')
+topo_grad = os.path.join(library_dir, 'topography', 'topo_grad.grd')
+
+event_path = os.path.join(shakedata_dir, event, 'input')
+disclaimer = os.path.join(event_path, event + '.disclaimer.txt')
+event_xml = os.path.join(event_path, 'event.xml')
 
 ##############################################################################
 # GET EVENT INFORMATION
 print 'GET EVENT INFORMATION'
-xmldoc = minidom.parse(event_path +'event.xml')
+xmldoc = minidom.parse(event_xml)
 event = xmldoc.getElementsByTagName('earthquake')
 event = event[0]
 mag_eve = event.attributes["mag"].value.encode('US-ASCII')
@@ -67,14 +76,13 @@ footprint = footprint + str(x_max) + '\t' + str(y_max) + '\n'
 footprint = footprint + str(x_max) + '\t' + str(y_min) + '\n'
 footprint = footprint + str(x_min) + '\t' + str(y_min) + '\n'
 footprint = footprint + str(x_min) + '\t' + str(y_max)
-foutfile = os.path.join(path,'event_footprint.txt')
 footprint_file = open(foutfile,'w')
 footprint_file.write(footprint)
 footprint_file.close()
 ################################################################################
 # SET GMT VARIABLES
-os.system('gmtset ANNOT_FONT_SIZE_PRIMARY 9p ANNOT_FONT_PRIMARY 1') 
-B = "-Ba120mf120mwSEn" 
+os.system('gmtset ANNOT_FONT_SIZE_PRIMARY 9p ANNOT_FONT_PRIMARY 1')
+B = "-Ba120mf120mwSEn"
 R = '-R'+str(x_min)+'/'+str(x_max)+'/'+str(y_min)+'/'+str(y_max)
 LF = "-Lfx0.0/1.0/.0/200"
 J = "-JQ4.75i"
@@ -88,9 +96,7 @@ shore_color="10/40/100"
 water_color="120/160/220"
 os.system('gmtset ANNOT_OFFSET_PRIMARY = 0.15c PLOT_DEGREE_FORMAT ddd:mm:ss')
 os.system('gmtset BASEMAP_TYPE = plain')
-#ps = path+'/pop_expo.ps'
 ps = './pop_expo.ps'
-gif = path+'/pop_expo.gif'
 ##################################################################################
 # GRDCUT POPULATION DATA
 # make zero grd
@@ -154,17 +160,17 @@ data = open('table.txt').readlines()
 
 data_tuples = []
 roman_no = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
-rgb = ['255/0/255','255/0/255','32/159/255', '0/207/255', '85/255/255', '170/255/255', '255/240/0', '255/168/0', '255/112/0', '255/0/0']; 
+rgb = ['255/0/255','255/0/255','32/159/255', '0/207/255', '85/255/255', '170/255/255', '255/240/0', '255/168/0', '255/112/0', '255/0/0'];
 i = -1;
 for line in data:
   i = i +1
   data2 = data[i].split('\t')
- 
+
   lon = float(data2[0])
   lat = float(data2[1])
   pop = int(data2[2])
   city = data2[3]
-  
+
   data4 = data2[4].split("\n")
   mmi = float(data4[0])
   if pop>1000:
@@ -201,11 +207,11 @@ os.system('surface mi_smooth.xyz -Gmi_smooth.grd -I30c -T0 -C0.0001  '+R)
 ################################################################################
 # PLOT  POPULATION AND MMI GRID
 os.system('psbasemap  -X0.5 -Y8.5 '+R+' '+J+' -K -P '+B+'  > '+ps)
-os.system('grdimage tmp_pop.grd -C'+path+'/pop.cpt '+M+' >> '+ps)
+os.system('grdimage tmp_pop.grd -C'+output_path+'/pop.cpt '+M+' >> '+ps)
 os.system('makecpt -Cno_green -T2/9.0/1  > ' + mi_cpt)
 os.system('grdcontour mi_smooth.grd -C'+mi_cpt+' -W+2p '+M+' -Q100 -A-   >> '+ps)
 os.system('pscoast '+M+' -Df -W -S192/216/255 >> '+ps)
-os.system('grdcontour mi_smooth.grd -C'+path+'/poptest.cpt -W+2p,- '+M+' -Q100 -A- >> '+ps)
+os.system('grdcontour mi_smooth.grd -C'+output_path+'/poptest.cpt -W+2p,- '+M+' -Q100 -A- >> '+ps)
 ################################################################################
 # PLOT EPICENTER AND CITIES on MAP
 os.system('echo '+lon_eve+' '+lat_eve+'| psxy '+M+' -Sa0.500 -Gred -W1.5,black  >> '+ps)
@@ -283,12 +289,12 @@ os.system('cat > cityinform.legend <<END'+'\n'+
 for i in xrange(len(city_inform)):
     os.system('cat << END >> cityinform.legend'+'\n'+
               'N 3'+'\n'+
-            
+
     'S 0.1i c 0.1i '+city_inform[i][6]+' 0.25p 0.2i ' +city_inform[i][4]+'\n'+
 
     'L '+ fontsize + ' '+ font +' C '+city_inform[i][2]+'\n'+
     'L '+ fontsize + ' '+ font +' C '+city_inform[i][5]+'\n'+
-    
+
     'D 0 1p'+'\n'+
     'END')
 os.system('pslegend -Dx5.15i/6.0i/2.75i/1.92i/TL -J -R -O -F -K cityinform.legend >> '+ps)
@@ -336,8 +342,8 @@ os.system('cat > disclaimer.legend <<END'+'\n'+
 os.system('pslegend -Dx0i/-0.2i/8i/5i/TL -J -R -O  -K disclaimer.legend >> '+ps)
 
 # PLOT THE LOGO
-os.system('psimage ' + images_path + 'LOGO_BMKG.ras -K -P -O -W0.5i -Y21.35 -X0.7i -Gtwhite >> '+ps)
-os.system('psimage ' + images_path + 'AIFDR_ALL_COLOR.ras -K -P -O -W2.5i -X5.0 -Y-1.2 >> '+ps)
-os.system('psimage ' + images_path + 'BNBP_greenboarder.ras -K -P -O -W0.8i -X9.8 -Y1 >> '+ps)
+os.system('psimage ' + images_path + '/LOGO_BMKG.ras -K -P -O -W0.5i -Y21.35 -X0.7i -Gtwhite >> '+ps)
+os.system('psimage ' + images_path + '/AIFDR_ALL_COLOR.ras -K -P -O -W2.5i -X5.0 -Y-1.2 >> '+ps)
+os.system('psimage ' + images_path + '/BNBP_greenboarder.ras -K -P -O -W0.8i -X9.8 -Y1 >> '+ps)
 
 os.system('rm *.grd *.legend *.xyz *.cpt *.txt')
