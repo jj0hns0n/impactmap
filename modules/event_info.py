@@ -15,13 +15,9 @@ def event_info(path):
 
     
 
-    cond = "'{if (NR!=1) print $1,$2,$5}'"
-    os.system ('awk '+cond+' '+path+' > mi_tmp.txt')
-    A = np.loadtxt('mi_tmp.txt')
+    A = np.loadtxt(path,dtype=float,skiprows=1)
     lon = A[:,0]
     lat = A[:,1]
-    mi = A[:,2]
-    
-    os.system('rm mi_tmp.txt')
+    mi = A[:,4]
     return event_info,A
 
