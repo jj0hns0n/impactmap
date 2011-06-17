@@ -5,10 +5,11 @@ import csv
 import points2distance
 
 ######################FUNCTION
-def list_historical_events(vec):
+def list_historical_events(vec,path):
     lat0 = float(vec[0])
     lon0 = float(vec[1])
-    list1 = [x for x in csv.reader(open('expoCat.v0.7.1.csv','r'))]
+    path = path + '/expoCat.v0.7.1.csv'
+    list1 = [x for x in csv.reader(open(path,'r'))]
     month = ['January','February','March','April','May','June','July','August','September','October','November','December']
     intensity = ['I','II','III','IV','V','VI','VII','VIII','IX','X']
     date = []
