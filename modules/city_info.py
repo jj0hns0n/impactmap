@@ -3,6 +3,7 @@ from utilities import make_grid
 
 def city_info(R,B,path):
     path = path+'/cities/Indonesia.txt'
+
     A = np.loadtxt(path,dtype={'names': ('lon','lat','pop','name'),\
                                       'formats': (float,float,float,'S10')})
 
@@ -11,7 +12,6 @@ def city_info(R,B,path):
 
 
     A = A[index]
-    print np.shape(A)
 
     points = B[:,0:2]
     values = B[:,2]

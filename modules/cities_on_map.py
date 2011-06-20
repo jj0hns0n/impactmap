@@ -28,9 +28,6 @@ def cities_on_map(A,dis_lim):
         else:
             n = 100
 
-    print A['lat']
-    print len(A['lat'])
-    print index, len(index)
     for i in index:
         os.system('cat << END >> city.txt'+'\n'+
         ''+str(A['lat'][i])+' '+str(A['lon'][i])+' 15 5 4 2 '+A['name'][i]+'\n'+

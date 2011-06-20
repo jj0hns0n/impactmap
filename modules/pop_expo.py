@@ -18,6 +18,12 @@ def pop_expo(event_info,A,path):
     R[2] = np.maximum(float(event_info['s_bound']),ls_info['s_bound'])
     R[3] = np.minimum(float(event_info['n_bound']),ls_info['n_bound'])
 
+    # Check that population and event data overlap
+    msg = ('Population data and event data did not overlap:\n'
+           'Event data: %s\n'
+           'Population: %s' % (str(event_info), str(ls_info)))
+    assert R[0] < R[1] and R[2] < R[3], msg
+
     dl = ls_info['step']
     col_low = np.abs(R[0]-ls_info['w_bound'])/dl
     col_low = np.ceil(col_low);
