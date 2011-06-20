@@ -39,7 +39,9 @@ def pop_expo(event_info,A,path):
     Z_pop = ls[row_low:row_high+1][:,col_low:col_high+1]
     Z_pop[Z_pop==-9999]= np.NaN
 
-    Z_I = make_grid(A[:, 0], A[:, 1], A[:, 2], X, Y)
+    points = A[:,0:2]
+    values = A[:,2]
+    Z_I = make_grid(points, values, (X, Y))
 
 
     I = [2, 3, 4, 5, 6, 7, 8, 9, 10]
