@@ -16,7 +16,7 @@ def cities_on_map(A,dis_lim):
             r = points2distance.points2distance(start,end)
             if r>=dis_lim:
                 T2 += [(T[i])]
-           
+
         if len(T2)>1:
             index += [(T2[0])]
             b = T2[0]
@@ -28,13 +28,16 @@ def cities_on_map(A,dis_lim):
         else:
             n = 100
 
+    print A['lat']
+    print len(A['lat'])
+    print index, len(index)
     for i in index:
         os.system('cat << END >> city.txt'+'\n'+
         ''+str(A['lat'][i])+' '+str(A['lon'][i])+' 15 5 4 2 '+A['name'][i]+'\n'+
         'END')
-        
-        
-           
-        
-    
-    
+
+
+
+
+
+

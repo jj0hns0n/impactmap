@@ -1,17 +1,14 @@
 import pickle
 import numpy as np
-try:
-    from scipy.interpolate import griddata
-except:
-    from matplotlib.mlab import griddata
+from utilities import make_grid
 
 
 def pop_expo(event_info,A,path):
-    pkl_file = open(path+'/landscan_binary.pkl','r')
+    pkl_file = open(path+'/population/landscan_binary.pkl','r')
     ls = pickle.load(pkl_file)
     ls = np.flipud(ls)
     pkl_file.close()
-    pkl_file = open(path+'/landscan_info.pkl','r')
+    pkl_file = open(path+'/population/landscan_info.pkl','r')
     ls_info = pickle.load(pkl_file)
     pkl_file.close()
 
@@ -42,10 +39,8 @@ def pop_expo(event_info,A,path):
     Z_pop = ls[row_low:row_high+1][:,col_low:col_high+1]
     Z_pop[Z_pop==-9999]= np.NaN
 
+    Z_I = make_grid(A[:, 0], A[:, 1], A[:, 2], X, Y)
 
-    points = A[:,0:2]
-    values = A[:,2]
-    Z_I = griddata(points,values,(X,Y),method='cubic')
 
     I = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 

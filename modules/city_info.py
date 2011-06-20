@@ -1,12 +1,8 @@
 import numpy as np
-
-try:
-    from scipy.interpolate import griddata
-except:
-    from matplotlib.mlab import griddata
+from utilities import make_grid
 
 def city_info(R,B,path):
-    path = path+'/Indonesia.txt'
+    path = path+'/cities/Indonesia.txt'
     A = np.loadtxt(path,dtype={'names': ('lon','lat','pop','name'),\
                                       'formats': (float,float,float,'S10')})
 
@@ -16,10 +12,7 @@ def city_info(R,B,path):
 
     A = A[index]
     print np.shape(A)
-    points = B[:,0:2]
-    values = B[:,2]
-    I = griddata(points,values,(A['lon'],A['lat']),method='cubic')
-
+    I = make_grid(B[:, 0], B[:, 1], B[:, 2], A['lon'], A['lat'])
 
     city = zip(A['name'].tolist(),A['pop'].tolist(),I.tolist(),A['lon'].tolist(),A['lat'].tolist())
 
