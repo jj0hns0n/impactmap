@@ -25,10 +25,17 @@ def region_map(event_info,A,R,shakedata_dir,library_dir):
     os.system('grdimage '+pop_grd+' -C'+pop_cpt+' '+R+' '+J+' -K -P -O >> comp1.eps')
     os.system('pscoast '+R+' '+J+' -K -P -O  -Df -W -S192/216/255 >> comp1.eps')
     os.system ('grdcontour mi.grd -C'+mi_cpt+' -W+1.5p '+R+' '+J+' -K -P -O >> comp1.eps')
+
+    # plot the epicenter
+    os.system('echo '+str(event_info['lon'])+' '+str(event_info['lat']+'| psxy '+R+' '+J+' -K -P -O -Sa0.500 -Gred -W1.5,black  >> comp1.eps')
+
+              
     os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop comp1.eps')
     os.system('pdfcrop comp1.pdf comp1.pdf')
     os.system('rm mi.grd')
     os.system('rm comp1.eps')
+
+    
 
 
 ##from event_info import event_info
