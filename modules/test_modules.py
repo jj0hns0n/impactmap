@@ -4,6 +4,7 @@ from pop_expo import pop_expo
 from city_info import city_info
 from cities_on_map import cities_on_map
 from list_historical_events import list_historical_events
+from test_GMT import region_map
 
 shakedata_dir = os.environ['SHAKEDATA']
 library_dir = os.environ['IMPACTLIB']
@@ -15,6 +16,7 @@ cities_on_map(C,100)
 vec = (event_info['lat'],event_info['lon'])
 hist_eve = list_historical_events(vec,library_dir)
 
-#print hist_eve
-#print C['intensity']
 
+# Plot Components
+
+region_map(event_info,A,R,shakedata_dir,library_dir)
