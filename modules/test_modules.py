@@ -5,6 +5,9 @@ from city_info import city_info
 from cities_on_map import cities_on_map
 from list_historical_events import list_historical_events
 from test_GMT import region_map
+from city_table import city_table
+from mini_indonesia import mini_indonesia
+from exposure import exposure
 
 shakedata_dir = os.environ['SHAKEDATA']
 library_dir = os.environ['IMPACTLIB']
@@ -20,3 +23,6 @@ hist_eve = list_historical_events(vec,library_dir)
 # Plot Components
 
 region_map(event_info,A,R,shakedata_dir,library_dir)
+city_table(C,R)
+mini_indonesia(R,library_dir)
+exposure(pop_expo,library_dir,R)

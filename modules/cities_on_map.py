@@ -30,7 +30,7 @@ def cities_on_map(A,dis_lim):
 
     for i in index:
         os.system('cat << END >> city.txt'+'\n'+
-        ''+str(A['lat'][i])+' '+str(A['lon'][i])+' 15 5 4 2 '+A['name'][i]+'\n'+
+        ''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+
         'END')
 
 

@@ -14,7 +14,9 @@ def city_info(R,B,path):
     A = A[index]
 
     points = B[:,0:2]
-    values = B[:,2]
+    values = B[:,4]
+
+    #print values,max(values)
     I = make_grid(points, values, (A['lon'], A['lat']))
 
     city = zip(A['name'].tolist(),A['pop'].tolist(),I.tolist(),A['lon'].tolist(),A['lat'].tolist())
@@ -23,8 +25,9 @@ def city_info(R,B,path):
     dtype = [('name','S10'),('population',float),('intensity',float),('lon',float),('lat',float)]
     city = np.array(city,dtype=dtype)
     city = np.sort(city,order=['intensity','population'])
-
+    
     city = np.flipud(city)
+    #print city[0:8]   
     return city
 
 

@@ -46,7 +46,7 @@ def pop_expo(event_info,A,path):
     Z_pop[Z_pop==-9999]= np.NaN
 
     points = A[:,0:2]
-    values = A[:,2]
+    values = A[:,4]
     Z_I = make_grid(points, values, (X, Y))
 
 
@@ -58,7 +58,7 @@ def pop_expo(event_info,A,path):
         index = np.nonzero((Z_I>=i-0.5)&(Z_I<i+0.5))
         k = k+1
         pop_expo[k] =  np.nansum(Z_pop[index])
-
+    
     pop_expo [ np.isnan(pop_expo)] = 0
     I = ['II','III','IV','V','VI','VII','VIII','IX','X']
     pop_expo = dict(zip(I,pop_expo))
