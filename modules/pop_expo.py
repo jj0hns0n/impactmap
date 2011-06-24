@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
-from utilities import make_grid
-
+#from utilities import make_grid
+from scipy.interpolate import griddata
 
 def pop_expo(event_info,A,path):
     pkl_file = open(path+'/population/landscan_binary.pkl','r')
@@ -47,8 +47,8 @@ def pop_expo(event_info,A,path):
 
     points = A[:,0:2]
     values = A[:,4]
-    Z_I = make_grid(points, values, (X, Y))
-
+    #Z_I = make_grid(points, values, (X, Y))
+    Z_I = griddata(points,values,(X,Y),method='cubic')
 
     I = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -62,6 +62,8 @@ def pop_expo(event_info,A,path):
     pop_expo [ np.isnan(pop_expo)] = 0
     I = ['II','III','IV','V','VI','VII','VIII','IX','X']
     pop_expo = dict(zip(I,pop_expo))
+
+   
     return pop_expo,R
 
 
