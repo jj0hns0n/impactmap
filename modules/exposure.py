@@ -1,5 +1,15 @@
 import os
-def exposure(expo,path,R):
+
+def exposure(expo, path, R, basename='comp4'):
+    """
+
+    Input
+        expo:
+        path:
+        R:
+        name: Optional basename for generated pdf file
+    """
+
     R = '-R'+str(R[0])+'/'+str(R[1])+'/'+str(R[2])+'/'+str(R[3])
     J = "-JM4.75i"
     mi_scale_cpt = path +'/palettes/mi_scale.cpt'
@@ -8,12 +18,12 @@ def exposure(expo,path,R):
     k = -1
     for i in roman:
         k = k+1
-        
+
         if expo[i]>1000:
           pop[k]= round(expo[i]/1000)
-          
+
           pop[k]= "%0.0f"%pop[k]+'k'
-         
+
         else:
           pop[k] = "%0.0f"%expo[i]
     print pop
@@ -50,9 +60,9 @@ def exposure(expo,path,R):
     'L '+ fontsize + ' '+ font +' C Population'+'\n'+
     'V 0 1p'+'\n'+
     'END')
-    os.system('psscale -D3.88i/6.652i/6.2i/0.2ih -C'+mi_scale_cpt + ' -B0/0  -K -S  > comp4.eps')
-    os.system('pslegend -Dx3.5i/7.0i/7i/0.95i/TC '+J+' '+R+' -O -F -K pager.legend  >> comp4.eps')
-    os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop comp4.eps')
-    os.system('pdfcrop comp4.pdf comp4.pdf')
+    os.system('psscale -D3.88i/6.652i/6.2i/0.2ih -C'+mi_scale_cpt + ' -B0/0  -K -S  > %s.eps' % basename)
+    os.system('pslegend -Dx3.5i/7.0i/7i/0.95i/TC '+J+' '+R+' -O -F -K pager.legend  >> %s.eps' % basename)
+    os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop %s.eps' % basename)
+    os.system('pdfcrop %s.pdf %s.pdf' % (basename, basename))
     os.system('rm pager.legend')
-    os.system('rm comp4.eps')
+    os.system('rm %s.eps' % basename)

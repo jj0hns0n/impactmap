@@ -16,7 +16,6 @@ def cities_on_map(A,dis_lim):
             r = points2distance.points2distance(start,end)
             if r>=dis_lim:
                 T2 += [(T[i])]
-
         if len(T2)>1:
             index += [(T2[0])]
             b = T2[0]

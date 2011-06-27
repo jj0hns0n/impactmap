@@ -14,15 +14,14 @@ library_dir = os.environ['IMPACTLIB']
 
 event_info,A = event_info(shakedata_dir)
 pop_expo,R = pop_expo(event_info,A,library_dir)
-#C = city_info(R,A,library_dir)
-#cities_on_map(C,100)
-#vec = (event_info['lat'],event_info['lon'])
-#hist_eve = list_historical_events(vec,library_dir)
+C = city_info(R,A,library_dir)
+cities_on_map(C,100)
+vec = (event_info['lat'],event_info['lon'])
+hist_eve = list_historical_events(vec,library_dir)
 
 
 # Plot Components
-
-#region_map(event_info,A,R,shakedata_dir,library_dir)
-#city_table(C,R)
-#mini_indonesia(R,library_dir)
-#exposure(pop_expo,library_dir,R)
+region_map(event_info,A,R,shakedata_dir,library_dir)
+city_table(C,R)
+mini_indonesia(R,library_dir)
+exposure(pop_expo,library_dir,R)
