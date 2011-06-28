@@ -28,7 +28,9 @@ def city_table(city_info, R, basename='comp2'):
     'END')
     roman_no = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
     rgb = ['255/0/255','255/0/255','32/159/255', '0/207/255', '85/255/255', '170/255/255', '255/240/0', '255/168/0', '255/112/0', '255/0/0'];
-    for i in xrange(8):
+
+    N = min(len(city_info), 8)
+    for i in xrange(N):
 
         if city_info['population'][i]>1000:
             pop = round(city_info['population'][i]/1000)
