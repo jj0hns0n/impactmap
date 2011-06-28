@@ -67,11 +67,6 @@ def unpack(filename):
     print cmd
     os.system(cmd)
 
-    # Move to $SHAKEDATA
-    cmd = 'cd usr/local/smap/data; mv %s %s' % (name, shakedata)
-    print cmd
-    os.system(cmd)
-
     # Unpack inp.zip file
     inpfilename = filename.replace('out', 'inp')
     cmd = 'unzip -o %s' % inpfilename
@@ -79,12 +74,7 @@ def unpack(filename):
     os.system(cmd)
 
     # Move to $SHAKEDATA
-    cmd = 'cd usr/local/smap/data/%s; mv input %s/%s' % (name, shakedata, name)
-    print cmd
-    os.system(cmd)
-
-    # Copy grd file down
-    cmd = 'cd %s; /bin/cp %s/%s/output/grid.xyz .' % (shakedata, shakedata, name)
+    cmd = 'cd usr/local/smap/data; /bin/mv -f %s %s' % (name, shakedata)
     print cmd
     os.system(cmd)
 

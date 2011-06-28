@@ -13,11 +13,11 @@ from modules.mini_indonesia import mini_indonesia
 from modules.exposure import exposure
 from utilities import makedir
 
-def calculate(shakedata_dir, library_dir):
+def calculate(shakedata_dir, library_dir, event_name):
     """Calculate exposure information
     """
 
-    event_info, A = calculate_event_info(shakedata_dir)
+    event_info, A = calculate_event_info(shakedata_dir, event_name)
     pop_expo, R = calculate_pop_expo(event_info, A, library_dir)
     C = city_info(R, A, library_dir)
     cities_on_map(C, 100)
@@ -55,12 +55,16 @@ if __name__ == '__main__':
     library_dir = os.environ['IMPACTLIB']
     shake_url = 'ftp://geospasial.bnpb.go.id'
 
-    # Get latest shakemap
+    # FIXME: Allow cmdline naming
+    # event_name = sys.argv[1]
+
+    # Get latest shakemap (in case no event was specified)
     filename = get_latest_shakemap(shake_url)
-    name = unpack(filename)
+    event_name = unpack(filename)
 
     # Calculate
-    event_info, pop_expo, A, R, C = calculate(shakedata_dir, library_dir)
+    event_info, pop_expo, A, R, C = calculate(shakedata_dir, library_dir,
+                                              event_name)
 
     # Plot Components
     create_mapcomponents(event_info, pop_expo, A, R, C)

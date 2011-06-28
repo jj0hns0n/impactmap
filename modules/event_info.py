@@ -1,10 +1,24 @@
 import os
 import numpy as np
-def event_info(path):
-    path = path + '/grid.xyz'
-    file = open(path)
-    line = file.readline()
-    file.close()
+
+
+def event_info(shakedata_dir, event_name):
+    """Read shakemap event information and return it as an Array
+
+    Input
+        shakedata_dir
+        event_name
+
+    Output
+        event_info: Dictionary of earthquake event data
+        A: Nx5 array
+    """
+
+
+    path = os.path.join(shakedata_dir, event_name, 'output', 'grid.xyz')
+    fid = open(path)
+    line = fid.readline()
+    fid.close()
 
     line = line.split(' ')
 
@@ -13,11 +27,11 @@ def event_info(path):
                   line[8],'w_bound': line[9],'s_bound': line[10],'e_bound':\
                   line[11],'n_bound': line[12]}
 
-    
 
-    A = np.loadtxt(path,dtype=float,skiprows=1)
+
+    A = np.loadtxt(path, dtype=float, skiprows=1)
     lon = A[:,0]
     lat = A[:,1]
     mi = A[:,4]
-    return event_info,A
+    return event_info, A
 
