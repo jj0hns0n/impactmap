@@ -13,10 +13,10 @@ def read_contents(url):
     Return contents as a list of urls
     """
 
-    print 'Opening %s' % url
+
+    print 'Reading data from %s' % url
     fid = urllib2.urlopen(url)
 
-    print 'Reading %s' % url
     urls = []
     for line in fid.readlines():
         fields = line.strip().split()
@@ -43,12 +43,12 @@ def get_latest_shakemap(url):
         print 'Downloading shakemap %s from %s' % (filename, url)
 
         # Get out.zip
-        cmd = 'wget %s' % latest
+        cmd = 'wget %s > logs/get_shakemap_output.log' % latest
         print cmd
         os.system(cmd)
 
         # Get inp.zip
-        cmd = 'wget %s' % latest.replace('out', 'inp')
+        cmd = 'wget %s > logs/get_shakemap_input.log' % latest.replace('out', 'inp')
         print cmd
         os.system(cmd)
 
@@ -62,36 +62,19 @@ def unpack(filename):
     fields = filename.split('.')
     name = fields[0]
 
+    print 'Unzipping shakemap data: %s' % name
     # Unpack out.zip file
-    cmd = 'unzip -o %s' % filename
-    print cmd
+    cmd = 'unzip -o %s > logs/unzip_shakemap_output.log' % filename
     os.system(cmd)
 
     # Unpack inp.zip file
     inpfilename = filename.replace('out', 'inp')
-    cmd = 'unzip -o %s' % inpfilename
-    print cmd
+    cmd = 'unzip -o %s > logs/unzip_shakemap_input.log' % inpfilename
     os.system(cmd)
 
     # Move to $SHAKEDATA
-    cmd = 'cd usr/local/smap/data; /bin/mv -f %s %s' % (name, shakedata)
+    cmd = 'cd usr/local/smap/data; /bin/cp -rf %s %s' % (name, shakedata)
     print cmd
     os.system(cmd)
 
     return name
-
-
-def run_impact_map(name):
-    """Run impact map
-    """
-
-    cmd = 'python PopExposureMap.py %s' % name
-    print cmd
-    os.system(cmd)
-
-if __name__ == '__main__':
-
-    filename = get_latest_shakemap(url)
-    name = unpack(filename)
-    run_impact_map(name)
-

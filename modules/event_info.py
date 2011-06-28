@@ -14,7 +14,6 @@ def event_info(shakedata_dir, event_name):
         A: Nx5 array
     """
 
-
     path = os.path.join(shakedata_dir, event_name, 'output', 'grid.xyz')
     fid = open(path)
     line = fid.readline()

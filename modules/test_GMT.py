@@ -2,7 +2,7 @@
 import os
 import numpy as np
 def region_map(event_info, A, R,
-               shakedata_dir, library_dir, basename='comp1'):
+               shakedata_dir, event_name, library_dir, basename='comp1'):
     """
 
     Input
@@ -17,8 +17,10 @@ def region_map(event_info, A, R,
         Pdf file using given name showing the exposure map
     """
 
+    path = os.path.join(shakedata_dir, event_name, 'output', 'grid.xyz')
+
     # SET PATHS
-    mi_xyz = shakedata_dir+'/grid.xyz'
+    mi_xyz = os.path.join(shakedata_dir, event_name, 'output', 'grid.xyz')
     mi_cpt = library_dir+'/palettes/mi.cpt'
     pop_grd = library_dir+'/population/landscan2008.grd'
     pop_cpt = library_dir+'/palettes/pop.cpt'
