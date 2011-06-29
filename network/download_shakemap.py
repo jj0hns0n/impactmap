@@ -42,17 +42,16 @@ class Shakemap_url:
                 os.system(cmd)
 
             # Unpack and move zip archives
-            print 'Unzipping shakemap data: %s' % self.event_name
-
             cmd = 'unzip -o %s > logs/unzip_%s.log' % (filename, filename)
             os.system(cmd)
 
             # Move to $SHAKEDATA
             cmd = 'cd usr/local/smap/data; /bin/cp -rf %s %s' % (self.event_name,
                                                                  shakedata)
-            print cmd
             os.system(cmd)
 
+        print ('Shakemap data available in:'
+               '%s' % (os.path.join(shakedata, self.event_name)))
         return self.event_name
 
 

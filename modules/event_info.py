@@ -1,6 +1,6 @@
 import os
 import numpy as np
-
+from xml.dom import minidom
 
 def event_info(shakedata_dir, event_name):
     """Read shakemap event information and return it as an Array
@@ -35,5 +35,25 @@ def event_info(shakedata_dir, event_name):
                   'n_bound': fields[12]}
 
     A = np.loadtxt(path, dtype=float, skiprows=1)
+
+    # Get some more info from the file grid.xml
+    # FIXME (Ole): We should be using only one of .xyz and .xml
+    event_xml = os.path.join(shakedata_dir, event_name, 'output', 'grid.xml')
+    print event_xml
+
+
+    xmldoc = minidom.parse(event_xml)
+    event = xmldoc.getElementsByTagName('event')
+    event = event[0]
+    mag = event.attributes['magnitude']
+    loc = event.attributes['event_description']
+    lon = event.attributes['lon']
+    lat = event.attributes['lat']
+    dep = event.attributes['depth']
+
+    event_info['depth'] = dep.nodeValue
+    event_info['location'] = loc.nodeValue
+
+
     return event_info, A
 

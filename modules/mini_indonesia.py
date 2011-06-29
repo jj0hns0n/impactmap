@@ -27,6 +27,6 @@ def mini_indonesia(R, path, basename='comp3'):
     os.system('psxy region.txt -O -K -P -JM2.5i -W1.5p,red -R94/143/-12/7 >> %s.eps' % basename)
 
     os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop %s.eps' % basename)
-    os.system('pdfcrop %s.pdf %s.pdf' % (basename, basename))
+    os.system('pdfcrop %s.pdf %s.pdf > logs/pdfcrop_%s.log' % (basename, basename, basename))
     os.system('rm %s.eps' % basename)
     os.system('rm region.txt')

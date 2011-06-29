@@ -26,7 +26,8 @@ def exposure(expo, path, R, basename='comp4'):
 
         else:
           pop[k] = "%0.0f"%expo[i]
-    print pop
+
+    #print pop
     font = '1'
     fontsize = '9'
     os.system('cat > pager.legend <<END'+'\n'+
@@ -63,6 +64,6 @@ def exposure(expo, path, R, basename='comp4'):
     os.system('psscale -D3.88i/6.652i/6.2i/0.2ih -C'+mi_scale_cpt + ' -B0/0  -K -S  > %s.eps' % basename)
     os.system('pslegend -Dx3.5i/7.0i/7i/0.95i/TC '+J+' '+R+' -O -F -K pager.legend  >> %s.eps' % basename)
     os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop %s.eps' % basename)
-    os.system('pdfcrop %s.pdf %s.pdf' % (basename, basename))
+    os.system('pdfcrop %s.pdf %s.pdf > logs/pdfcrop_%s.log' % (basename, basename, basename))
     os.system('rm pager.legend')
     os.system('rm %s.eps' % basename)

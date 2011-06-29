@@ -51,6 +51,6 @@ def city_table(city_info, R, basename='comp2'):
                   'END')
     os.system('pslegend -Dx5.15i/6.0i/2.75i/1.92i/TL '+J+' '+R+' -F -K cityinform.legend > %s.eps' % basename)
     os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop %s.eps' % basename)
-    os.system('pdfcrop %s.pdf %s.pdf' % (basename, basename))
+    os.system('pdfcrop %s.pdf %s.pdf > logs/pdfcrop_%s.log' % (basename, basename, basename))
     os.system('rm cityinform.legend')
     os.system('rm %s.eps' % basename)

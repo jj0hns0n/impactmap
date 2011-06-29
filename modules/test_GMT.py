@@ -50,7 +50,7 @@ def region_map(event_info, A, R,
 
     # Generate map as pdf cropped to bounding box
     os.system('ps2pdf14 -dPDFSETTINGS=/prepress -dEPSCrop %s.eps' % basename)
-    os.system('pdfcrop %s.pdf %s.pdf' % (basename, basename))
+    os.system('pdfcrop %s.pdf %s.pdf > logs/pdfcrop_%s.log' % (basename, basename, basename))
     os.system('/bin/rm mi.grd')
     os.system('/bin/rm city.txt')
     os.system('/bin/rm *.eps')
