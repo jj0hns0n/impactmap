@@ -1,8 +1,7 @@
-% LaTeX example of generating a one-pager
+% LaTeX fixture for generating earthquake exposure information
 
 % Standard document class set to landscape
 \documentclass[a4paper]{article}
-
 
 % Extra packages
 \usepackage[hmargin=6mm,vmargin=10mm]{geometry}
@@ -10,10 +9,6 @@
 \usepackage{graphicx}
 \usepackage{courier}
 \usepackage{colortbl}
-
-
-% Location of graphics
-\graphicspath{{images/}}
 
 % Define background colours for MMI levels
 \definecolor{I}{RGB}{0,0,255}
@@ -27,7 +22,7 @@
 \definecolor{IX}{RGB}{255,0,0}
 \definecolor{X}{RGB}{240,0,240}
 
-% Fixed with coloured cell
+% Fixed width coloured cell
 % Usage: \cell{color}{text}
 \newcommand{\cell}[2]{
   \cellcolor{#1}
@@ -41,43 +36,15 @@
 \begin{document}
 
 % Header
-\begin{tabular}{lcr}
-\includegraphics[width=0.08\textwidth]{bnpb_logo} &
-\raisebox{10mm}{\parbox{0.75\textwidth}{\Huge \centerline{\textbf{Gempa Alert}}}} &
-\includegraphics[width=0.08\textwidth]{bmkg_logo}
-\end{tabular}
+\input{header}
 
 % Earthquake statistics as per BMKG sms
 \bigskip
-\begin{tabular}{@{}lr}
-{\Large \textbf{Mag: 7.8 SR 29-Jan-11 23:40:20 WIB}} & \large Versi 1\\
-{\Large \textbf{Lintang: 4.045$^\circ$ Garis bujur: 97.066$^\circ$ Kedalaman: 10.0km}}&\\
-{\Large \textbf{115 km BaratDaya GUNUNGSITOLISUMUT}} &
-\scriptsize Dibuat 36 minggu, 2 hari setelah gempa\\
-\end{tabular}
+\input{event_statistics.tex}
 
 % MMI legend
 \bigskip
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
-  \hline
-  \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Estimasi penduduk terexpos pada tingkat getaran yang berbeda}} \\
-   \hline
-  \hline
-  \textbf{Intensitas (MMI)} &
-  \cell{II}{II} &
-  \cell{III}{III} &
-  \cell{IV}{IV} &
-  \cell{V}{V} &
-  \cell{VI}{VI} &
-  \cell{VII}{VII} &
-  \cell{VIII}{VIII} &
-  \cell{IX}{IX}\\ \hline
-  \textbf{Populasi} &
-  0 & 6921 & 8864 & 1367 & 472 & 16 & 0 & 0 \\ \hline
-  \textbf{Persepsi Gemetar} &
-  Lemah & Lemah & Cahaya & Moderat & Kuat & Sangat Kuat & Parah & Keras   \\
-  \noalign{\hrule height 0.6pt}
-\end{tabular}
+\input{exposure_table.tex}
 
 % Map elements
 \bigskip
@@ -98,20 +65,11 @@
 % PAGE 2
 \clearpage
 % Header
-\begin{tabular}{lcr}
-\includegraphics[width=0.08\textwidth]{bnpb_logo} &
-\raisebox{10mm}{\parbox{0.75\textwidth}{\Huge \centerline{\textbf{Gempa Alert}}}} &
-\includegraphics[width=0.08\textwidth]{bmkg_logo}
-\end{tabular}
+\input{header}
 
 % Earthquake statistics as per BMKG sms
 \bigskip
-\begin{tabular}{@{}lr}
-{\Large \textbf{Mag: 7.8 SR 29-Jan-11 23:40:20 WIB}} & \large Versi 1\\
-{\Large \textbf{Lintang: 4.045$^\circ$ Garis bujur: 97.066$^\circ$ Kedalaman: 10.0km}}&\\
-{\Large \textbf{115 km BaratDaya GUNUNGSITOLISUMUT}} &
-\scriptsize Dibuat 36 minggu, 2 hari setelah gempa\\
-\end{tabular}
+\input{event_statistics.tex}
 
 % MMI legend
 \bigskip

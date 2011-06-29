@@ -59,9 +59,9 @@ def pop_expo(event_info,A,path):
         k = k+1
 
         # Temporary debug print statements
-        print 'k',k
-        print 'index', index
-        print 'len', len(Z_pop)
+        #print 'k',k
+        #print 'index', index
+        #print 'len', len(Z_pop)
         pop_expo[k] =  np.nansum(Z_pop[index])
 
     pop_expo [ np.isnan(pop_expo)] = 0
