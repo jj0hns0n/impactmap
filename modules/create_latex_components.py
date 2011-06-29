@@ -102,9 +102,9 @@ def generate_exposure_table(event_info, pop_expo):
     filename = 'exposure_table.tex'  # Must match main LaTeX file
 
     fid = open(filename, 'w')
-    fid.write('\\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\\\\ \n')
+    fid.write('\\begin{tabular}{|c|c|c|c|c|c|c|c|c|} \n')
     fid.write('\\hline \n')
-    fid.write('\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
+    fid.write('\\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
               '\\textbf{Estimasi penduduk terexpos pada tingkat '
               'getaran yang berbeda}} \\\\ \n')
     fid.write('\\hline \n')

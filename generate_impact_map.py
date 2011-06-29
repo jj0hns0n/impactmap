@@ -11,7 +11,8 @@ from modules.test_GMT import region_map
 from modules.city_table import city_table
 from modules.mini_indonesia import mini_indonesia
 from modules.exposure import exposure
-from modules.create_latex_components import generate_event_header, generate_exposure_table
+from modules.create_latex_components import generate_event_header
+from modules.create_latex_components import generate_exposure_table
 from utilities import makedir
 
 def calculate(shakedata_dir, library_dir, event_name):
@@ -56,8 +57,8 @@ def create_map():
     os.system('/bin/mv *.tex temp')
 
     # Compile LaTeX document and move it
-    #os.system('cd temp; pdflatex earthquake_impact_map.tex -s > ../logs/create_texmap.log')
-    os.system('cd temp; pdflatex earthquake_impact_map.tex -s')
+    os.system('cd temp; pdflatex earthquake_impact_map.tex -s '
+              '> ../logs/create_texmap.log')
     os.system('/bin/cp temp/earthquake_impact_map.pdf .')
 
 def usage(shakedata_dir, shake_url):
