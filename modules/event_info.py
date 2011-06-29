@@ -11,7 +11,7 @@ def event_info(shakedata_dir, event_name):
 
     Output
         event_info: Dictionary of earthquake event data
-        A: Nx5 array
+        A: Nx8 array with the columns of grid.xyz
     """
 
     path = os.path.join(shakedata_dir, event_name, 'output', 'grid.xyz')
