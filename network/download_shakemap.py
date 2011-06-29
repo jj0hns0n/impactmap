@@ -32,7 +32,7 @@ class Shakemap_url:
             filename = url.split('/')[-1]
 
             if os.path.isfile(filename):
-                print 'Shakemap file %s already exists' % filename
+                print 'Using existing shakemap file %s' % filename
             else:
                 print 'Downloading shakemap file %s from %s' % (filename, url)
 

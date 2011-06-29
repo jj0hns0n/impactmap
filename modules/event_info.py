@@ -19,20 +19,20 @@ def event_info(shakedata_dir, event_name):
     line = fid.readline()
     fid.close()
 
-    line = line.split(' ')
+    fields = line.split(' ')
 
-    event_info = {'mag': line[1],
-                  'lat': line[2],
-                  'lon': line[3],
-                  'month': line[4],
-                  'day': line[5],
-                  'year': line[6],
-                  'time': line[7],
-                  'time-zone': line[8],
-                  'w_bound': line[9],
-                  's_bound': line[10],
-                  'e_bound': line[11],
-                  'n_bound': line[12]}
+    event_info = {'mag': fields[1],
+                  'lat': fields[2],
+                  'lon': fields[3],
+                  'month': fields[4],
+                  'day': fields[5],
+                  'year': fields[6],
+                  'time': fields[7],
+                  'time-zone': fields[8],
+                  'w_bound': fields[9],
+                  's_bound': fields[10],
+                  'e_bound': fields[11],
+                  'n_bound': fields[12]}
 
     A = np.loadtxt(path, dtype=float, skiprows=1)
     return event_info, A
