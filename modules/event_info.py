@@ -39,9 +39,6 @@ def event_info(shakedata_dir, event_name):
     # Get some more info from the file grid.xml
     # FIXME (Ole): We should be using only one of .xyz and .xml
     event_xml = os.path.join(shakedata_dir, event_name, 'output', 'grid.xml')
-    print event_xml
-
-
     xmldoc = minidom.parse(event_xml)
     event = xmldoc.getElementsByTagName('event')
     event = event[0]

@@ -13,7 +13,7 @@ def exposure(expo, path, R, basename='comp4'):
     R = '-R'+str(R[0])+'/'+str(R[1])+'/'+str(R[2])+'/'+str(R[3])
     J = "-JM4.75i"
     mi_scale_cpt = path +'/palettes/mi_scale.cpt'
-    roman = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX','X']
+    roman = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
     pop=range(9)
     k = -1
     for i in roman:

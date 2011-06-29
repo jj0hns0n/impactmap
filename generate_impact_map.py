@@ -11,7 +11,7 @@ from modules.test_GMT import region_map
 from modules.city_table import city_table
 from modules.mini_indonesia import mini_indonesia
 from modules.exposure import exposure
-from modules.create_latex_components import generate_event_header
+from modules.create_latex_components import generate_event_header, generate_exposure_table
 from utilities import makedir
 
 def calculate(shakedata_dir, library_dir, event_name):
@@ -40,6 +40,7 @@ def create_mapcomponents(event_info, event_name, pop_exp, A, R, C):
 
     # LaTeX contents
     generate_event_header(event_info)
+    generate_exposure_table(event_info, pop_expo)
 
 def create_map():
     """Assemble components into final exposure map

@@ -64,12 +64,12 @@ def pop_expo(event_info,A,path):
         #print 'len', len(Z_pop)
         pop_expo[k] =  np.nansum(Z_pop[index])
 
-    pop_expo [ np.isnan(pop_expo)] = 0
+    pop_expo [np.isnan(pop_expo)] = 0
     I = ['II','III','IV','V','VI','VII','VIII','IX','X']
     pop_expo = dict(zip(I,pop_expo))
 
 
-    return pop_expo,R
+    return pop_expo, R
 
 
 

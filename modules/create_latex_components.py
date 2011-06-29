@@ -54,3 +54,85 @@ def generate_event_header(event_info):
     fid.close()
 
     return filename
+
+
+def generate_exposure_table(event_info, pop_expo):
+    """Generate table of people exposed to different MMI levels
+
+    Input
+        event_info: Dictionary with event parameters
+
+    Output
+        filename: Name of generated LaTeX file with contents like
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+  \hline
+  \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Estimasi penduduk terexpos pada tingkat getaran yang berbeda}} \\
+   \hline
+  \hline
+  \textbf{Intensitas (MMI)} &
+  \cell{II}{II} &
+  \cell{III}{III} &
+  \cell{IV}{IV} &
+  \cell{V}{V} &
+  \cell{VI}{VI} &
+  \cell{VII}{VII} &
+  \cell{VIII}{VIII} &
+  \cell{IX}{IX}\\ \hline
+  \textbf{Populasi} &
+  0 & 6921 & 8864 & 1367 & 472 & 16 & 0 & 0 \\ \hline
+  \textbf{Persepsi Gemetar} &
+  Lemah & Lemah & Cahaya & Moderat & Kuat & Sangat Kuat & Parah & Keras   \\
+  \noalign{\hrule height 0.6pt}
+\end{tabular}
+
+    """
+
+    # Convert absolute numbers to units of a thousand (k)
+    pop_str = {}
+    for key in pop_expo:
+        x = pop_expo[key]
+        if x > 1000:
+            pop_str[key] = '%ik' % round(x/1000)
+        else:
+            pop_str[key] = '%i' % x
+
+
+    # Generate LaTeX code
+    filename = 'exposure_table.tex'  # Must match main LaTeX file
+
+    fid = open(filename, 'w')
+    fid.write('\\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\\\\ \n')
+    fid.write('\\hline \n')
+    fid.write('\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
+              '\\textbf{Estimasi penduduk terexpos pada tingkat '
+              'getaran yang berbeda}} \\\\ \n')
+    fid.write('\\hline \n')
+    fid.write('\\hline \n')
+    fid.write('\\textbf{Intensitas (MMI)} & \n')
+    fid.write('\\cell{II}{II} & \n')
+    fid.write('\\cell{III}{III} & \n')
+    fid.write('\\cell{IV}{IV} & \n')
+    fid.write('\\cell{V}{V} & \n')
+    fid.write('\\cell{VI}{VI} & \n')
+    fid.write('\\cell{VII}{VII} & \n')
+    fid.write('\\cell{VIII}{VIII} & \n')
+    fid.write('\\cell{IX}{IX}\\\\ \\hline \n')
+    fid.write('\\textbf{Populasi} & \n')
+    fid.write('%s & %s & %s & %s & %s & %s & %s & %s \\\\ \hline'
+              '\n' % (pop_str['II'],
+                      pop_str['III'],
+                      pop_str['IV'],
+                      pop_str['V'],
+                      pop_str['VI'],
+                      pop_str['VII'],
+                      pop_str['VIII'],
+                      pop_str['IX']))
+    fid.write('\\textbf{Persepsi Gemetar} & \n')
+    fid.write('Lemah & Lemah & Cahaya & Moderat & Kuat & Sangat Kuat & Parah & Keras   \\\\ \n')
+    fid.write('\\noalign{\\hrule height 0.6pt} \n')
+    fid.write('\\end{tabular} \n')
+
+    fid.close()
+
+    return filename
