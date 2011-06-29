@@ -1,8 +1,7 @@
 import os
 import sys
 
-from network.download_shakemap import get_latest_shakemap
-from network.download_shakemap import unpack
+from network.download_shakemap import get_shakemap_data
 from modules.event_info import event_info as calculate_event_info
 from modules.pop_expo import pop_expo as calculate_pop_expo
 from modules.city_info import city_info
@@ -69,11 +68,15 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 1:
         # Get latest shakemap (in case no event was specified)
-        filename = get_latest_shakemap(shake_url)
-        event_name = unpack(filename)
+        event_name = get_shakemap_data(shake_url)
     elif len(sys.argv) == 2:
         # Use event name from command line
         event_name = sys.argv[1]
+
+        # If it doesn't exist, try to get it from web site
+        if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
+            event_name = get_shakemap_data(shake_url, event_name)
+
     else:
         print usage(shakedata_dir, shake_url)
         sys.exit()
