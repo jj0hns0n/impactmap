@@ -95,10 +95,12 @@ if __name__ == '__main__':
         sys.exit()
 
     # Calculate
+    print 'Calculating population exposure'
     event_info, pop_expo, A, R, C = calculate(shakedata_dir, library_dir,
                                               event_name)
 
     # Plot Components
+    print 'Creating individual map components'
     create_mapcomponents(event_info, event_name, pop_expo, A, R, C)
 
     # Generate LaTeX document

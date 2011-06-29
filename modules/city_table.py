@@ -18,12 +18,12 @@ def city_table(city_info, R, basename='comp2'):
     font = '1'
 
     os.system('cat > cityinform.legend <<END'+'\n'+
-    'H 13 1 Affected Cities'+'\n' +
+    'H 13 1 Kota-kota yang terkena dampak'+'\n' +
     'D 0 1p'+'\n'+
     'N 3'+'\n'+
-    'L '+ fontsize + ' '+ font +' C City'+'\n'+
-    'L '+ fontsize + ' '+ font +' C Population'+'\n'+
-    'L '+ fontsize + ' '+ font +' C Intensity'+'\n'+
+    'L '+ fontsize + ' '+ font +' C Kota'+'\n'+
+    'L '+ fontsize + ' '+ font +' C Penduduk'+'\n'+
+    'L '+ fontsize + ' '+ font +' C Intensitas'+'\n'+
     'D 0 1p'+'\n'+
     'END')
     roman_no = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']

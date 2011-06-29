@@ -70,7 +70,7 @@ def generate_exposure_table(event_info, pop_expo):
   \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Estimasi penduduk terexpos pada tingkat getaran yang berbeda}} \\
    \hline
   \hline
-  \textbf{Intensitas (MMI)} &
+  \textbf{Intensitas} &
   \cell{II}{II} &
   \cell{III}{III} &
   \cell{IV}{IV} &
@@ -102,14 +102,14 @@ def generate_exposure_table(event_info, pop_expo):
     filename = 'exposure_table.tex'  # Must match main LaTeX file
 
     fid = open(filename, 'w')
-    fid.write('\\begin{tabular}{|c|c|c|c|c|c|c|c|c|} \n')
+    fid.write('\\begin{tabular}{|l|c|c|c|c|c|c|c|c|} \n')
     fid.write('\\hline \n')
     fid.write('\\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
               '\\textbf{Estimasi penduduk terexpos pada tingkat '
               'getaran yang berbeda}} \\\\ \n')
     fid.write('\\hline \n')
     fid.write('\\hline \n')
-    fid.write('\\textbf{Intensitas (MMI)} & \n')
+    fid.write('\\textbf{Intensitas} & \n')
     fid.write('\\cell{II}{II} & \n')
     fid.write('\\cell{III}{III} & \n')
     fid.write('\\cell{IV}{IV} & \n')
