@@ -43,7 +43,6 @@ def generate_event_header(event_info):
     # FIXME (Ole): This ought to be done when first obtained)
     day = event_info['day']
     month_str = event_info['month'].title()  # FIXME: make translation table
-    year_str = event_info['year']
     time_str = event_info['time']
     time_zone = event_info['time-zone']
     msg = ('Assumed GMT in shakemap data. If this has changed this '

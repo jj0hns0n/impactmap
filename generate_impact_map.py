@@ -44,11 +44,11 @@ def create_mapcomponents(event_info, event_name, pop_exp, A, R, C):
     generate_event_header(event_info)
     generate_exposure_table(event_info, pop_expo)
 
-def create_map():
+def create_map(event_name):
     """Assemble components into final exposure map
     """
 
-    print 'Compiling map components into earth_quake_impact_map.pdf'
+    print 'Compiling map components into earth_quake_impact_map_%s.pdf' % event_name
 
     # Get static files
     os.system('/bin/cp fixtures/* temp')
@@ -60,7 +60,7 @@ def create_map():
     # Compile LaTeX document and move it
     os.system('cd temp; pdflatex earthquake_impact_map.tex -s '
               '> ../logs/create_texmap.log')
-    os.system('/bin/cp temp/earthquake_impact_map.pdf .')
+    os.system('/bin/cp temp/earthquake_impact_map.pdf earthquake_impact_map_%s.pdf' % event_name)
 
 def usage(shakedata_dir, shake_url):
     s = ('Usage:\n'
@@ -95,6 +95,10 @@ if __name__ == '__main__':
         print usage(shakedata_dir, shake_url)
         sys.exit()
 
+    # Clean event_name just in case someone pasted a dirname
+    if event_name.endswith('/'):
+        event_name = event_name[:-1]
+
     # Calculate
     print 'Calculating population exposure'
     event_info, pop_expo, A, R, C = calculate(shakedata_dir, library_dir,
@@ -105,6 +109,6 @@ if __name__ == '__main__':
     create_mapcomponents(event_info, event_name, pop_expo, A, R, C)
 
     # Generate LaTeX document
-    create_map()
+    create_map(event_name)
 
 
