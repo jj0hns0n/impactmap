@@ -34,7 +34,7 @@ def generate_event_header(event_info):
     lat_str = 'Lintang: %s$^\circ$' % event_info['lat']
     lon_str = 'Garis bujur: %s$^\circ$' % event_info['lon']
     dep_str = 'Kedalaman: %skm' % event_info['depth']
-    loc_str = '%s' % event_info['location']
+    loc_str = '%s' % event_info['location_string']
     # FIXME: We want: 115 km BaratDaya Bandung
 
     fid = open(filename, 'w')

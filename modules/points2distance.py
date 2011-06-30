@@ -2,9 +2,9 @@ import math
 def recalculate_coordinate(val,  _as=None):
   """
     Accepts a coordinate as a tuple (degree, minutes, seconds)
-    You can give only one of them (e.g. only minutes as a floating point number) 
+    You can give only one of them (e.g. only minutes as a floating point number)
     and it will be duly recalculated into degrees, minutes and seconds.
-    Return value can be specified as 'deg', 'min' or 'sec'; default return value is 
+    Return value can be specified as 'deg', 'min' or 'sec'; default return value is
     a proper coordinate tuple.
   """
   deg,  min,  sec = val
@@ -31,12 +31,12 @@ def points2distance(start,  end):
   """
     Calculate distance (in kilometers) between two points given as (long, latt) pairs
     based on Haversine formula (http://en.wikipedia.org/wiki/Haversine_formula).
-    Implementation inspired by JavaScript implementation from 
+    Implementation inspired by JavaScript implementation from
     http://www.movable-type.co.uk/scripts/latlong.html
-    Accepts coordinates as tuples (deg, min, sec), but coordinates can be given 
+    Accepts coordinates as tuples (deg, min, sec), but coordinates can be given
     in any form - e.g. can specify only minutes:
-    (0, 3133.9333, 0) 
-    is interpreted as 
+    (0, 3133.9333, 0)
+    is interpreted as
     (52.0, 13.0, 55.998000000008687)
     which, not accidentally, is the lattitude of Warsaw, Poland.
   """

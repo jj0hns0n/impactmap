@@ -3,6 +3,7 @@ import sys
 
 from network.download_shakemap import get_shakemap_data
 from modules.event_info import event_info as calculate_event_info
+from modules.calculate_location_info import calculate_location_info
 from modules.pop_expo import pop_expo as calculate_pop_expo
 from modules.city_info import city_info
 from modules.cities_on_map import cities_on_map
@@ -25,7 +26,7 @@ def calculate(shakedata_dir, library_dir, event_name):
     cities_on_map(C, 100)
     vec = (event_info['lat'], event_info['lon'])
     hist_eve = list_historical_events(vec, library_dir)
-
+    calculate_location_info(event_info, C)
     return event_info, pop_expo, A, R, C
 
 

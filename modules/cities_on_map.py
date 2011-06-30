@@ -11,6 +11,8 @@ def cities_on_map(A,dis_lim):
     n = -1
     while n < 0:
         for i in range(len(T)):
+            # FIXME (Ole): Is this right?
+            #              I think the function expects longitude first
             start = ((A['lat'][b],0,0),(A['lon'][b],0,0))
             end = ((A['lat'][T[i]],0,0),(A['lon'][T[i]],0,0))
             r = points2distance.points2distance(start,end)
