@@ -22,7 +22,7 @@ def generate_event_header(event_info):
 
     filename = 'event_statistics.tex'  # Must match main LaTeX file
 
-    mag_str = 'M %s SR' % event_info['mag']
+    mag_str = 'M %s' % event_info['mag']
     date_str = '%s-%s-%s %s %s' % (event_info['day'],
                                    event_info['month'].title(),
                                    event_info['year'][2:],
@@ -32,10 +32,9 @@ def generate_event_header(event_info):
     version_str = 'Versi 1'  # FIXME (Ole): Still need to do this
 
     lat_str = 'Lintang: %s$^\circ$' % event_info['lat']
-    lon_str = 'Garis bujur: %s$^\circ$' % event_info['lon']
+    lon_str = 'Bujur: %s$^\circ$' % event_info['lon']
     dep_str = 'Kedalaman: %skm' % event_info['depth']
     loc_str = '%s' % event_info['location_string']
-    # FIXME: We want: 115 km BaratDaya Bandung
 
     fid = open(filename, 'w')
     fid.write('\\begin{tabular}{@{}lr}\n')
@@ -105,8 +104,8 @@ def generate_exposure_table(event_info, pop_expo):
     fid.write('\\begin{tabular}{|l|c|c|c|c|c|c|c|c|} \n')
     fid.write('\\hline \n')
     fid.write('\\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
-              '\\textbf{Estimasi penduduk terexpos pada tingkat '
-              'getaran yang berbeda}} \\\\ \n')
+              '\\textbf{Estimasi jumlah penduduk terekspos pada setiap tingkat '
+              'getaran berbeda}} \\\\ \n')
     fid.write('\\hline \n')
     fid.write('\\hline \n')
     fid.write('\\textbf{Intensitas} & \n')
@@ -128,8 +127,8 @@ def generate_exposure_table(event_info, pop_expo):
                       pop_str['VII'],
                       pop_str['VIII'],
                       pop_str['IX']))
-    fid.write('\\textbf{Persepsi Gemetar} & \n')
-    fid.write('Lemah & Lemah & Cahaya & Moderat & Kuat & Sangat Kuat & Parah & Keras   \\\\ \n')
+    fid.write('\\textbf{Getaran dirasakan} & \n')
+    fid.write('Lemah & Lemah & Agak lemah & Moderat & Kuat & Sangat Kuat & Parah & Ekstrem   \\\\ \n')
     fid.write('\\noalign{\\hrule height 0.6pt} \n')
     fid.write('\\end{tabular} \n')
 
