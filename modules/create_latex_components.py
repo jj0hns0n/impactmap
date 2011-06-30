@@ -1,6 +1,25 @@
 """Generate variable components for LaTeX file
 """
 
+from datetime import datetime
+import locale
+import pytz
+
+# Why do I have to write this and why can't datetime understand 'JUN'?
+# Anyway, this table will be hand for translating to Bahasa Indonesia
+month2int = {'JAN': 1,
+             'FEB': 2,
+             'MAR': 3,
+             'APR': 4,
+             'MAY': 5,
+             'JUN': 6,
+             'JUL': 7,
+             'AUG': 8,
+             'SEP': 9,
+             'OCT': 10,
+             'NOV': 11,
+             'DEC': 12}
+
 
 def generate_event_header(event_info):
     """Generate header with event statistics
@@ -20,15 +39,59 @@ def generate_event_header(event_info):
 
     """
 
+    # Extract date and time info
+    # FIXME (Ole): This ought to be done when first obtained)
+    day = event_info['day']
+    month_str = event_info['month'].title()  # FIXME: make translation table
+    year_str = event_info['year']
+    time_str = event_info['time']
+    time_zone = event_info['time-zone']
+    msg = ('Assumed GMT in shakemap data. If this has changed this '
+           'code must change also.')
+    assert time_zone == 'GMT', msg
+
+    # Work out interval since earthquake (assume both are GMT)
+    year = int(event_info['year'])
+    month = month2int[month_str.upper()]
+    day = int(event_info['day'])
+    hour, minute, second = [int(x) for x in time_str.split(':')]
+
+    eq_date = datetime(year, month, day, hour, minute, second)
+    time_delta = datetime.utcnow() - eq_date
+
+    if time_delta.days == 0:
+        # This is within the first day after the quake
+        hours = int(time_delta.seconds / 3600)
+        minutes = int((time_delta.seconds % 3600) / 60)
+
+        if hours == 0:
+            lapse_string = '%i menit' % minutes
+        else:
+            lapse_string = '%i jam %i menit' % (hours, minutes)
+    else:
+        # This at least one day after the quake
+
+        weeks = int(time_delta.days / 7)
+        days = int(time_delta.days % 7)
+
+        if weeks == 0:
+            lapse_string = '%i hari' % days
+        else:
+            lapse_string = '%i minggu %i hari' % (weeks, days)
+
+    # Convert date to GMT+7
+    tz = pytz.timezone('Asia/Jakarta')  # Or 'Etc/GMT+7'
+    eq_date_jakarta = eq_date.replace(tzinfo=pytz.utc).astimezone(tz)
+
+    # The character %b will use the local word for month
+    # However, setting the locale explicitly to test, does not work.
+    #locale.setlocale(locale.LC_TIME, 'id_ID')
+
+    date_str = eq_date_jakarta.strftime('%d-%b-%y %H:%M:%S %Z')
+
     filename = 'event_statistics.tex'  # Must match main LaTeX file
 
     mag_str = 'M %s' % event_info['mag']
-    date_str = '%s-%s-%s %s %s' % (event_info['day'],
-                                   event_info['month'].title(),
-                                   event_info['year'][2:],
-                                   event_info['time'],
-                                   event_info['time-zone'])
-
     version_str = 'Versi 1'  # FIXME (Ole): Still need to do this
 
     lat_str = 'Lintang: %s$^\circ$' % event_info['lat']
@@ -37,7 +100,7 @@ def generate_event_header(event_info):
     loc_str = '%s' % event_info['location_string']
 
     fid = open(filename, 'w')
-    fid.write('\\begin{tabular}{@{}lr}\n')
+    fid.write('\\begin{tabular}{@{}lr@{}}\n')
     fid.write('  {\Large \\textbf{%s %s}} & \large %s\\\\ \n' % (mag_str,
                                                                  date_str,
                                                                  version_str))
@@ -45,10 +108,7 @@ def generate_event_header(event_info):
                                                          lon_str,
                                                          dep_str))
     fid.write('  {\Large \\textbf{%s}} & \n' % loc_str)
-
-    # FIXME: Still need to calculate time after earthquake (easy, though)
-    fid.write('  \scriptsize Dibuat X minggu, Y hari sesudah gempa\\\\ \n')
-
+    fid.write('  \small Dibuat %s sesudah gempa\\\\ \n' % lapse_string)
     fid.write('\\end{tabular}')
     fid.close()
 
