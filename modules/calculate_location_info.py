@@ -34,7 +34,25 @@ def calculate_location_info(event_info, city_info):
     b = city_location.bearing_to(earthquake_location)
 
     # Create string and update event_info
-    s = 'Berjarak %i km dari %s, arah %i$^\circ$' % (d/1000, city_name, b)
+    if 5 <= b < 85:
+        direction = 'Timur Laut'  # North East
+    elif 85 <= b < 95:
+        direction = 'Timur'       # East
+    elif 95 <= b < 175:
+        direction = 'Tenggara'    # South East
+    elif 175 <= b < 185:
+        diretion = 'Selatan'      # South
+    elif 185 <= b < 265:
+        direction = 'Barat Daya'  # South West
+    elif 265 <= b < 275:
+        direction = 'Barat'       # West
+    elif 275 <= b < 355:
+        direction = 'Barat Laut'  # North West
+    else:
+        direction = 'Utara'       # North
+
+    s = 'Berjarak %i km, %i$^\circ$ Arah %s %s' % (d/1000, b,
+                                                   direction, city_name)
     event_info['location_string'] = s
 
 

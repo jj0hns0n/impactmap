@@ -13,7 +13,7 @@ def generate_event_header(event_info):
 
 \begin{tabular}{@{}lr}
   {\Large \textbf{Mag: 7.8 SR 29-Jan-11 23:40:20 WIB}} & \large Versi 1\\
-  {\Large \textbf{Lintang: 4.045$^\circ$ Garis bujur: 97.066$^\circ$ Kedalaman: 10.0km}}&\\
+  {\Large \textbf{Lintang: 4.045$^\circ$ Garis bujur: 97.066$^\circ$ Kedalaman: 10.0 km}}&\\
   {\Large \textbf{115 km BaratDaya GUNUNGSITOLISUMUT}} &
   \scriptsize Dibuat 36 minggu, 2 hari setelah gempa\\
 \end{tabular}
@@ -33,7 +33,7 @@ def generate_event_header(event_info):
 
     lat_str = 'Lintang: %s$^\circ$' % event_info['lat']
     lon_str = 'Bujur: %s$^\circ$' % event_info['lon']
-    dep_str = 'Kedalaman: %skm' % event_info['depth']
+    dep_str = 'Kedalaman: %s km' % event_info['depth']
     loc_str = '%s' % event_info['location_string']
 
     fid = open(filename, 'w')
@@ -47,7 +47,7 @@ def generate_event_header(event_info):
     fid.write('  {\Large \\textbf{%s}} & \n' % loc_str)
 
     # FIXME: Still need to calculate time after earthquake (easy, though)
-    fid.write('  \scriptsize Dibuat X minggu, Y hari setelah gempa\\\\ \n')
+    fid.write('  \scriptsize Dibuat X minggu, Y hari sesudah gempa\\\\ \n')
 
     fid.write('\\end{tabular}')
     fid.close()
@@ -128,10 +128,11 @@ def generate_exposure_table(event_info, pop_expo):
                       pop_str['VIII'],
                       pop_str['IX']))
     fid.write('\\textbf{Getaran dirasakan} & \n')
-    fid.write('Lemah & Lemah & Agak lemah & Moderat & Kuat & Sangat Kuat & Parah & Ekstrem   \\\\ \n')
+    fid.write('Lemah & Lemah & Agak lemah & Moderat & Kuat & Sangat Kuat & Keras & Sangat Keras  \\\\ \n')
     fid.write('\\noalign{\\hrule height 0.6pt} \n')
     fid.write('\\end{tabular} \n')
 
     fid.close()
 
     return filename
+

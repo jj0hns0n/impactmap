@@ -18,7 +18,7 @@ def city_table(city_info, R, basename='comp2'):
     font = '1'
 
     os.system('cat > cityinform.legend <<END'+'\n'+
-    'H 13 1 Kota-kota yang terkena dampak'+'\n' +
+    'H 13 1 Kota-kota terdampak'+'\n' +
     'D 0 1p'+'\n'+
     'N 3'+'\n'+
     'L '+ fontsize + ' '+ font +' C Kota'+'\n'+

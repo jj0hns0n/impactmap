@@ -129,3 +129,56 @@ class Point:
         if self.sinlon*P.coslon - self.coslon*P.sinlon > 0: AZ = 2*pi - AZ
 
         return AZ
+
+
+#---------------------------------------------
+# NOTE (Ole): Not in use, but could be needed one day
+def safe_acos(x):
+    """Safely compute acos
+
+       Protect against cases where input argument x is outside the allowed
+       interval [-1.0, 1.0] by no more than machine precision
+
+       Ole Nielsen 2006
+    """
+
+    error_msg = ('Input to acos is outside allowed domain [-1.0, 1.0].'
+                 'I got %.12f' % x)
+    warning_msg = 'Changing argument to acos from %.18f to %.1f' % (x, sign(x))
+
+    eps = get_machine_precision() # Machine precision
+
+    if x < -1.0:
+        if x < -1.0 - eps:
+            raise ValueError, errmsg
+        else:
+            warn(warning_msg)
+            x = -1.0
+
+    if x > 1.0:
+        if x > 1.0 + eps:
+            raise ValueError, errmsg
+        else:
+            print 'NOTE: changing argument to acos from %.18f to 1.0' % x
+            x = 1.0
+
+    return acos(x)
+
+
+def get_machine_precision():
+    """Calculate the machine precision for Floats
+
+       Depends on static variable machine_precision in this module
+       as this would otherwise require too much computation.
+    """
+
+    global machine_precision
+
+    if machine_precision is None:
+        epsilon = 1.
+        while epsilon/2 + 1. > 1.:
+            epsilon /= 2
+
+        machine_precision = epsilon
+
+    return machine_precision
