@@ -12,8 +12,8 @@ def calculate_distance(p1, p2):
     # FIXME (Ole): Small wrapper until ticket #7 is done
     from points2distance import points2distance
 
-    start = ((p1[0], 0, 0),  (p1[0], 0, 0))
-    end = ((p2[0], 0, 0),  (p2[0], 0, 0))
+    start = ((p1[0], 0, 0),  (p1[1], 0, 0))
+    end = ((p2[0], 0, 0),  (p2[1], 0, 0))
     return points2distance(start, end)
 
 def calculate_location_info(event_info, city_info):
