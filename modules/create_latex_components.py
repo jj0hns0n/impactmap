@@ -58,6 +58,14 @@ def generate_event_header(event_info):
     eq_date = datetime(year, month, day, hour, minute, second)
     time_delta = datetime.utcnow() - eq_date
 
+    # Hack - remove when ticket:10 has been resolved
+    tz = pytz.timezone('Asia/Jakarta')  # Or 'Etc/GMT+7'
+    now = datetime.utcnow()
+    now_jakarta = now.replace(tzinfo=pytz.utc).astimezone(tz)
+    eq_jakarta = eq_date.replace(tzinfo=tz).astimezone(tz)
+    time_delta = now_jakarta - eq_jakarta
+
+    # Work out string to report time elapsed after quake
     if time_delta.days == 0:
         # This is within the first day after the quake
         hours = int(time_delta.seconds / 3600)
@@ -79,8 +87,12 @@ def generate_event_header(event_info):
             lapse_string = '%i minggu %i hari' % (weeks, days)
 
     # Convert date to GMT+7
-    tz = pytz.timezone('Asia/Jakarta')  # Or 'Etc/GMT+7'
-    eq_date_jakarta = eq_date.replace(tzinfo=pytz.utc).astimezone(tz)
+    # FIXME (Ole) Hack - Remove this as the shakemap data always
+    # reports the time in GMT+7 but the timezone as GMT.
+    # This is the topic of ticket:10
+    #tz = pytz.timezone('Asia/Jakarta')  # Or 'Etc/GMT+7'
+    #eq_date_jakarta = eq_date.replace(tzinfo=pytz.utc).astimezone(tz)
+    eq_date_jakarta = eq_date
 
     # The character %b will use the local word for month
     # However, setting the locale explicitly to test, does not work.
