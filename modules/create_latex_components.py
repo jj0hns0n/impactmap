@@ -31,7 +31,7 @@ def generate_event_header(event_info):
         filename: Name of generated LaTeX file with contents like
 
 \begin{tabular}{@{}lr}
-  {\Large \textbf{Mag: 7.8 SR 29-Jan-11 23:40:20 WIB}} & \large Versi 1\\
+  {\Large \textbf{Mag: 7.8 SR 29-Jan-11 23:40:20 WIB}} & \large \flushright Versi 1\\
   {\Large \textbf{Lintang: 4.045$^\circ$ Garis bujur: 97.066$^\circ$ Kedalaman: 10.0 km}}&\\
   {\Large \textbf{115 km BaratDaya GUNUNGSITOLISUMUT}} &
   \scriptsize Dibuat 36 minggu, 2 hari setelah gempa\\

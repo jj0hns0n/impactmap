@@ -1,0 +1,52 @@
+#! /bin/bash
+
+echo "---------------------------------------------------------"
+echo "Installing impact_map and all its dependencies on Ubuntu "
+echo "This will take a little while depending on"
+echo "the internet speed."
+echo
+echo "In any case, now is great time to go get a cup of coffee!"
+echo "---------------------------------------------------------"
+
+
+sudo apt-get -y update
+
+echo " - Installing Ubuntu packages"
+sudo apt-get install -y netcdf-bin libnetcdf-dev texlive-base texlive-fonts-recommended
+
+# For scipy:
+# libblas-dev liblapack-dev gfortran
+# texlive-extra-utils
+# APT GET scipy.interpolation...
+
+
+#gmt libgmt4 gmt-coast-low
+#sudo gmt-coastline-download
+
+sudo sh install_gmt.sh GMTparam.txt
+
+
+
+# Get impact_map from Subversion repository.
+# If it already exists, do an update.
+# Developers, should make sure they have done an
+# svn co --username ..... first.
+
+REPO="http://www.aifdr.org/svn/impact_map"
+WORKING_DIR="impact_map"
+
+if [ -d "${WORKING_DIR}" ];
+then
+    echo "Updating ${WORKING_DIR} from upstream"
+    (cd "${WORKING_DIR}" && svn update)
+else
+    svn co --username anonymous "${REPO}" "${WORKING_DIR}"
+fi
+
+
+
+# Setup virtual env and install into it
+# easy_install numpy
+#
+# Download scipy 0.9.0
+# python setup.py install
