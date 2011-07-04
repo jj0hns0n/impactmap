@@ -124,5 +124,24 @@ if __name__ == '__main__':
     filename = create_map(event_name)
 
     # Show
-    cmd = 'evince %s' % filename
+    cmd = 'evince %s &' % filename
+    os.system(cmd)
+
+    # Extract original shakemap information as GIS
+
+    grd_filename = event_name + '.grd'
+    asc_filename = event_name + '.asc'
+    tif_filename = event_name + '.tif'
+    cmd = ('cp %s/%s/output/mi.grd %s'
+         % (shakedata_dir, event_name, grd_filename))
+    print cmd
+    os.system(cmd)
+
+    # Convert grd file to asc
+    s = 'python convert_gmt_grid.py %s' % grd_filename
+    os.system(s)
+
+    # View in QGIS
+    basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
+    cmd = 'qgis %s %s &' % (basemap, tif_filename)
     os.system(cmd)
