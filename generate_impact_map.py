@@ -48,7 +48,8 @@ def create_map(event_name):
     """Assemble components into final exposure map
     """
 
-    print 'Compiling map components into earth_quake_impact_map_%s.pdf' % event_name
+    filename = 'eartquake_impact_map_%s.pdf' % event_name
+    print 'Compiling map components into %s' % filename
 
     # Get static files
     os.system('/bin/cp fixtures/* temp')
@@ -60,7 +61,9 @@ def create_map(event_name):
     # Compile LaTeX document and move it
     os.system('cd temp; pdflatex earthquake_impact_map.tex -s '
               '> ../logs/create_texmap.log')
-    os.system('/bin/cp temp/earthquake_impact_map.pdf earthquake_impact_map_%s.pdf' % event_name)
+    os.system('/bin/cp temp/earthquake_impact_map.pdf %s' % filename)
+
+    return filename
 
 def usage(shakedata_dir, shake_url):
     s = ('Usage:\n'
@@ -109,6 +112,8 @@ if __name__ == '__main__':
     create_mapcomponents(event_info, event_name, pop_expo, A, R, C)
 
     # Generate LaTeX document
-    create_map(event_name)
+    filename = create_map(event_name)
 
-
+    # Show
+    cmd = 'evince %s' % filename
+    os.system(cmd)
