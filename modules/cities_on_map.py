@@ -30,9 +30,14 @@ def cities_on_map(A,dis_lim):
             n = 100
 
     for i in index:
+        # FIXME (Ole): This often fails with an IndexError e.g. for event
+        #              20110703211806 . Need to make this
+        #              algorithm robust. See ticket:2
+
         os.system('cat << END >> city.txt'+'\n'+
-        ''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+
-        'END')
+                      ''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+
+                      'END')
+
 
 
 

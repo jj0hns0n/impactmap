@@ -68,7 +68,6 @@ def pop_expo(event_info,A,path):
     I = ['II','III','IV','V','VI','VII','VIII','IX','X']
     pop_expo = dict(zip(I,pop_expo))
 
-
     return pop_expo, R
 
 
