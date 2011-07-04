@@ -28,11 +28,14 @@ def city_info(R, B, path):
     I = make_grid(points, values, (A['lon'], A['lat']))
 
     # Create city list with entries: Name, population, MMI, lon, lat
-    city = zip(A['name'].tolist(),
-               A['pop'].tolist(),
-               I.tolist(),
-               A['lon'].tolist(),
-               A['lat'].tolist())
+
+    intensity = I.tolist()
+    name = A['name'].tolist()
+    pop = A['pop'].tolist()
+    lon = A['lon'].tolist()
+    lat = A['lat'].tolist()
+
+    city = zip(name, pop, intensity, lon, lat)
 
     # Convert to array and sort by intensity
     # (and population if intensity is the same)
