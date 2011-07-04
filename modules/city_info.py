@@ -29,11 +29,20 @@ def city_info(R, B, path):
 
     # Create city list with entries: Name, population, MMI, lon, lat
 
-    intensity = I.tolist()
-    name = A['name'].tolist()
-    pop = A['pop'].tolist()
-    lon = A['lon'].tolist()
-    lat = A['lat'].tolist()
+    # FIXME (Ole): Hack until ticket:2 has been addressed
+    if len(A) == 0:
+        # Dummy city
+        intensity = [0.0]
+        name = ['Kosong']
+        pop = [10000]
+        lon = [112.27]
+        lat = [-7.530]
+    else:
+        intensity = I.tolist()
+        name = A['name'].tolist()
+        pop = A['pop'].tolist()
+        lon = A['lon'].tolist()
+        lat = A['lat'].tolist()
 
     city = zip(name, pop, intensity, lon, lat)
 
@@ -45,7 +54,7 @@ def city_info(R, B, path):
              ('lon',float),
              ('lat',float)]
     city = np.array(city, dtype=dtype)
-    city = np.sort(city, order=['intensity','population'])
+    city = np.sort(city, order=['intensity', 'population'])
     city = np.flipud(city)
 
     return city

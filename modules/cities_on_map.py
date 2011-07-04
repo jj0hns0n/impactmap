@@ -29,18 +29,12 @@ def cities_on_map(A, dis_lim):
         else:
             n = 100
 
-    # FIXME (Ole): Hack regarding ticket:2 to get over situations where
-    #              no cities are exposed.
-    print 'index', index
-
     for i in index:
         # FIXME (Ole): This often fails with an IndexError e.g. for event
         #              20110703211806 . Need to make this
         #              algorithm robust. See ticket:2
 
-        cmd = 'cat << END >> city.txt'+'\n'+
-        ''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+
-        'END'
+        cmd = 'cat << END >> city.txt'+'\n'+''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+'END'
         os.system(cmd)
 
 

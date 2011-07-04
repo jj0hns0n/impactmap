@@ -39,7 +39,6 @@ def city_table(city_info, R, basename='comp2'):
             # FIXME (Ole): pop may be unassigned here
             pop = "%0.0f"%pop
 
-        print city_info
         name = city_info['name'][i]
         color = rgb[int(city_info['intensity'][i])]
         MI = roman_no[int(round(city_info['intensity'][i]))]
