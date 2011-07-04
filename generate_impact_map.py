@@ -132,16 +132,21 @@ if __name__ == '__main__':
     grd_filename = event_name + '.grd'
     asc_filename = event_name + '.asc'
     tif_filename = event_name + '.tif'
+    shp_filename = event_name + '.shp'
     cmd = ('cp %s/%s/output/mi.grd %s'
          % (shakedata_dir, event_name, grd_filename))
     print cmd
     os.system(cmd)
 
-    # Convert grd file to asc
-    s = 'python convert_gmt_grid.py %s' % grd_filename
-    os.system(s)
+    # Convert grd file to asc and tif
+    cmd = 'python convert_gmt_grid.py %s' % grd_filename
+    os.system(cmd)
+
+    # Contour tif file
+    cmd = 'gdal_contour -i %f %s %s' % (1.0, tif_filename, shp_filename)
+    os.system(cmd)
 
     # View in QGIS
     basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
-    cmd = 'qgis %s %s &' % (basemap, tif_filename)
+    cmd = 'qgis %s %s %s &' % (basemap, tif_filename, shp_filename)
     os.system(cmd)
