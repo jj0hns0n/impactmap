@@ -90,6 +90,15 @@ if __name__ == '__main__':
         # Use event name from command line
         event_name = sys.argv[1]
 
+        # Extract event name from URL if that is the case
+        if event_name.startswith('ftp://geospasial.bnpb.go.id/'):
+            msg = 'Expected event name %s to end with .zip' % event_name
+            assert event_name.endswith('.zip'), msg
+
+            event_name = event_name.split('/')[-1]
+            event_name = event_name.split('.')[0]
+
+
         # If it doesn't exist, try to get it from web site
         if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
             event_name = get_shakemap_data(shake_url, event_name)
