@@ -14,10 +14,17 @@ sudo apt-get -y update
 echo " - Installing Ubuntu packages"
 sudo apt-get install -y netcdf-bin libnetcdf-dev texlive-base texlive-fonts-recommended
 
+# g++ python-tz
+# python-virtualenv python-dev python-numpy  ### NO python-distutils  
+
+virtualenv ~/shake_env
+easy_install numpy
+
+
 # For scipy:
 # libblas-dev liblapack-dev gfortran
 # texlive-extra-utils
-# APT GET scipy.interpolation...
+# APT GET scipy.interpolation... 
 
 
 #gmt libgmt4 gmt-coast-low
@@ -32,21 +39,23 @@ sudo sh install_gmt.sh GMTparam.txt
 # Developers, should make sure they have done an
 # svn co --username ..... first.
 
-REPO="http://www.aifdr.org/svn/impact_map"
-WORKING_DIR="impact_map"
+#REPO="http://www.aifdr.org/svn/impact_map"
+#WORKING_DIR="impact_map"
 
-if [ -d "${WORKING_DIR}" ];
-then
-    echo "Updating ${WORKING_DIR} from upstream"
-    (cd "${WORKING_DIR}" && svn update)
-else
-    svn co --username anonymous "${REPO}" "${WORKING_DIR}"
-fi
+#if [ -d "${WORKING_DIR}" ];
+#then
+#    echo "Updating ${WORKING_DIR} from upstream"
+#    (cd "${WORKING_DIR}" && svn update)
+#else
+#    svn co --username anonymous "${REPO}" "${WORKING_DIR}"
+#fi
 
 
 
 # Setup virtual env and install into it
 # easy_install numpy
 #
-# Download scipy 0.9.0
+# Download scipy 0.9.0 
+
+http://sourceforge.net/projects/scipy/files/scipy/0.9.0/scipy-0.9.0.tar.gz/download
 # python setup.py install
