@@ -41,7 +41,7 @@ def calculate_location_info(event_info, city_info):
     elif 95 <= b < 175:
         direction = 'Tenggara'    # South East
     elif 175 <= b < 185:
-        diretion = 'Selatan'      # South
+        direction = 'Selatan'      # South
     elif 185 <= b < 265:
         direction = 'Barat Daya'  # South West
     elif 265 <= b < 275:

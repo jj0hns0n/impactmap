@@ -143,7 +143,11 @@ if __name__ == '__main__':
     os.system(cmd)
 
     # Contour tif file
-    cmd = 'gdal_contour -i %f %s %s' % (1.0, tif_filename, shp_filename)
+    cmd = '/bin/rm -rf %s' % shp_filename
+    os.system(cmd)
+
+    cmd = 'gdal_contour -i %f %s %s' % (1, tif_filename, shp_filename)
+    print cmd
     os.system(cmd)
 
     # View in QGIS
