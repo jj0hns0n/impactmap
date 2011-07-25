@@ -34,24 +34,23 @@ def pop_expo(event_info,A,path):
     row_high = np.abs(R[3]-ls_info['s_bound'])/dl
     row_high = np.floor(row_high);
 
-
     x_min = col_low*dl+ls_info['w_bound']
     x_max = col_high*dl+ls_info['w_bound']
     y_min = row_low*dl+ls_info['s_bound']
     y_max = row_high*dl+ls_info['s_bound']
 
+    Nx = col_high - col_low
+    Ny = row_high - row_low
+    x, dx = np.linspace(x_min, x_max, Nx, endpoint=False, retstep=True)
+    y, dy = np.linspace(y_min, y_max, Ny, endpoint=False, retstep=True)
 
-    x, dx = np.linspace(x_min,x_max,len(ls[col_low:col_high]),endpoint=False,retstep=True)
-    y, dy = np.linspace(y_min,y_max,len(ls[row_low:row_high]),endpoint=False,retstep=True)
-    
-    print col_low,col_high,len(x),len(y)
-    print len(ls[:,col_low:col_high])
+    msg = ('Step size of landscan subgrid in the x direction inconsistent '
+           'with original landscape grid. Got %f expected %f' % (dx, dl))
+    assert np.allclose(dx, dl, rtol=1.0e-12, atol=1.0e-12), msg
 
-    msg = 'Step size of landscan subgrid inconsistent with original landscape grid. Got %f expected %f' % (dx, dl)
-    assert np.allclose(dx, dl, rtol=1.0e-12), msg   
-
-    msg = 'Step size of landscan subgrid inconsistent with original landscape grid. Got %f expected %f' % (dy, dl)
-    assert np.allclose(dy, dl, rtol=1.0e-12), msg   
+    msg = ('Step size of landscan subgrid in the y direction inconsistent '
+           'with original landscape grid. Got %f expected %f' % (dy, dl))
+    assert np.allclose(dy, dl, rtol=1.0e-12, atol=1.0e-12), msg
 
 
 
