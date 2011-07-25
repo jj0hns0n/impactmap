@@ -23,7 +23,7 @@ easy_install numpy
 
 # For scipy:
 # libblas-dev liblapack-dev gfortran
-# texlive-extra-utils
+# texlive-extra-utils  (for pdfcrop)
 # APT GET scipy.interpolation... 
 
 
