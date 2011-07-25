@@ -30,19 +30,25 @@ def city_info(R, B, path):
     # Create city list with entries: Name, population, MMI, lon, lat
 
     # FIXME (Ole): Hack until ticket:2 has been addressed
-    if len(A) == 0:
-        # Dummy city
-        intensity = [0.0]
-        name = ['Kosong']
-        pop = [10000]
-        lon = [112.27]
-        lat = [-7.530]
-    else:
-        intensity = I.tolist()
-        name = A['name'].tolist()
-        pop = A['pop'].tolist()
-        lon = A['lon'].tolist()
-        lat = A['lat'].tolist()
+    # if len(A) == 0:
+    #     # Dummy city
+    #     intensity = [0.0]
+    #     name = ['Kosong']
+    #     pop = [10000]
+    #     lon = [112.27]
+    #     lat = [-7.530]
+    # else:
+    #     intensity = I.tolist()
+    #     name = A['name'].tolist()
+    #     pop = A['pop'].tolist()
+    #     lon = A['lon'].tolist()
+    #     lat = A['lat'].tolist()
+
+    intensity = I.tolist()
+    name = A['name'].tolist()
+    pop = A['pop'].tolist()
+    lon = A['lon'].tolist()
+    lat = A['lat'].tolist()
 
     city = zip(name, pop, intensity, lon, lat)
 
