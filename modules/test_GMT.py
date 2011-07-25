@@ -40,7 +40,7 @@ def region_map(event_info, A, R,
     os.system('psbasemap '+R+' '+J+' -K -P '+B+'  > %s.eps' % basename)
     os.system('grdimage '+pop_grd+' -C'+pop_cpt+' '+R+' '+J+' -K -P -O >> %s.eps' % basename)
     os.system('pscoast '+R+' '+J+' -K -P -O  -Df -W -S192/216/255 >> %s.eps' % basename)
-    os.system ('grdcontour mi.grd -C'+mi_cpt+' -W+1.5p '+R+' '+J+' -K -P -O >> %s.eps' % basename)
+    os.system ('grdcontour mi.grd -C'+mi_cpt+' -W+1.5p '+R+' '+J+' -K -P -O -Q100>> %s.eps' % basename)
 
     # plot the epicenter
     os.system('echo '+str(event_info['lon'])+' '+str(event_info['lat'])+'| psxy '+R+' '+J+' -K -P -O -Sa0.500 -Gred -W1.5,black >> %s.eps' % basename)
