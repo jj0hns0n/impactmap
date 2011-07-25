@@ -34,17 +34,32 @@ def pop_expo(event_info,A,path):
     row_high = np.abs(R[3]-ls_info['s_bound'])/dl
     row_high = np.floor(row_high);
 
-    #print row_low,row_high,col_low,col_high
 
-    x_min = col_low*dl+ls_info['w_bound'];
-    x_max = col_high*dl+ls_info['w_bound'];
-    y_min = row_low*dl+ls_info['s_bound'];
-    y_max = row_high*dl+ls_info['s_bound'];
+    x_min = col_low*dl+ls_info['w_bound']
+    x_max = col_high*dl+ls_info['w_bound']
+    y_min = row_low*dl+ls_info['s_bound']
+    y_max = row_high*dl+ls_info['s_bound']
 
-    x = np.arange(x_min,x_max+dl,dl)
-    y = np.arange(y_min,y_max+dl,dl)
+
+    x, dx = np.linspace(x_min,x_max,len(ls[col_low:col_high]),endpoint=False,retstep=True)
+    y, dy = np.linspace(y_min,y_max,len(ls[row_low:row_high]),endpoint=False,retstep=True)
+    
+    print col_low,col_high,len(x),len(y)
+    print len(ls[:,col_low:col_high])
+
+    msg = 'Step size of landscan subgrid inconsistent with original landscape grid. Got %f expected %f' % (dx, dl)
+    assert np.allclose(dx, dl, rtol=1.0e-12), msg   
+
+    msg = 'Step size of landscan subgrid inconsistent with original landscape grid. Got %f expected %f' % (dy, dl)
+    assert np.allclose(dy, dl, rtol=1.0e-12), msg   
+
+
+
     [X,Y] = np.meshgrid(x,y)
-    Z_pop = ls[row_low:row_high+1][:,col_low:col_high+1]
+
+    Z_pop = ls[row_low:row_high,col_low:col_high]
+
+
     Z_pop[Z_pop==-9999]= np.NaN
 
     points = A[:,0:2]
