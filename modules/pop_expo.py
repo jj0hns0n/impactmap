@@ -6,7 +6,7 @@ from scipy.interpolate import griddata
 def pop_expo(event_info,A,path):
     pkl_file = open(path+'/population/landscan_binary.pkl','r')
     ls = pickle.load(pkl_file)
-    ls = np.flipud(ls)
+    #ls = np.flipud(ls)
     pkl_file.close()
     pkl_file = open(path+'/population/landscan_info.pkl','r')
     ls_info = pickle.load(pkl_file)
@@ -33,23 +33,27 @@ def pop_expo(event_info,A,path):
     row_low = np.ceil(row_low);
     row_high = np.abs(R[3]-ls_info['s_bound'])/dl
     row_high = np.floor(row_high);
-
+    
+    #print row_low,row_high,col_low,col_high
+    
     x_min = col_low*dl+ls_info['w_bound'];
     x_max = col_high*dl+ls_info['w_bound'];
     y_min = row_low*dl+ls_info['s_bound'];
     y_max = row_high*dl+ls_info['s_bound'];
 
-    x = np.arange(x_min,x_max+dl,dl)
-    y = np.arange(y_min,y_max+dl,dl)
+    x = np.arange(x_min,x_max,dl)
+    y = np.arange(y_min,y_max,dl)
     [X,Y] = np.meshgrid(x,y)
-    Z_pop = ls[row_low:row_high+1][:,col_low:col_high+1]
+    Z_pop = ls[row_low:row_high][:,col_low:col_high]
     Z_pop[Z_pop==-9999]= np.NaN
 
     points = A[:,0:2]
     values = A[:,4]
     #Z_I = make_grid(points, values, (X, Y))
     Z_I = griddata(points,values,(X,Y),method='cubic')
-
+    
+    #print 'len', len(X),len(Z_I)
+    
     I = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     pop_expo = np.zeros(9,dtype = 'float')
