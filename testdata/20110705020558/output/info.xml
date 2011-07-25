@@ -1,0 +1,25 @@
+<info evid="20110705020558" tags="grind_time,datafiles,src_mech,faultfiles,median_dist,map_bound,sitecorr_regime,site_correction,pgm2mi,miscale,mi2pgm ,GMPE,bias,bias_log_amp,mi_bias,pga_max,pgv_max,mi_max,psa03_max,psa10_max,psa30_max,mean_uncertainty,grade">
+  <tag name="grind_time" value="Tue Jul  5 02:05:59 WIT 2011&#10;" desc="Start time for event processing" />
+  <tag name="datafiles" value="db_dat.xml" desc="List of input files" />
+  <tag name="src_mech" value="ALL" desc="Source mechanism (based on gmpe)" />
+  <tag name="faultfiles" value="" desc="List of fault files" />
+  <tag name="median_dist" value="yes" desc="Median distance used" />
+  <tag name="map_bound" value="95.230000/99.230000/-0.730000/3.270000" desc="Boundary of event map" />
+  <tag name="sitecorr_regime" value="active" desc="Computed site correction regime (stable|active)" />
+  <tag name="site_correction" value="custom" desc="[custom] or site corr file" />
+  <tag name="pgm2mi" value="GMICE::Wald99 - Wald, et al.; 1999" desc="Intensity Function" />
+  <tag name="miscale" value="scale_wald99.ps" desc="Intensity Scale" />
+  <tag name="mi2pgm " value="GMICE::Wald99 - Wald, et al.; 1999" desc="Inverse Intensity Function" />
+  <tag name="GMPE" value="GMPE::Youngs97_intraslab" desc="GMPE type" />
+  <tag name="bias" value="0.00 0.00 0.00 0.00 0.00 " desc="magnitude bias (pga pgv psa03 psa10 psa30 )" />
+  <tag name="bias_log_amp" value="yes" desc="Used log amp to compute bias?" />
+  <tag name="mi_bias" value="0.00" desc="magnitude bias for Intensity" />
+  <tag name="pga_max" value="9.93" desc="Max value of grid" />
+  <tag name="pgv_max" value="5.79" desc="Max value of grid" />
+  <tag name="mi_max" value="5.79" desc="Max value of grid" />
+  <tag name="psa03_max" value="13.93" desc="Max value of grid" />
+  <tag name="psa10_max" value="6.12" desc="Max value of grid" />
+  <tag name="psa30_max" value="0.74" desc="Max value of grid" />
+  <tag name="mean_uncertainty" value="-" desc="Mean of map uncertainty" />
+  <tag name="grade" value="-" desc="Empirical ShakeMap Grade" />
+</info>

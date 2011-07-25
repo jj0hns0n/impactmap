@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<!DOCTYPE earthquake [
+<!ELEMENT  earthquake EMPTY>
+<!ATTLIST earthquake
+  id 		ID	#REQUIRED
+  lat		CDATA	#REQUIRED
+  lon		CDATA	#REQUIRED
+  mag		CDATA	#REQUIRED
+  year          CDATA   #REQUIRED
+  month         CDATA   #REQUIRED
+  day           CDATA   #REQUIRED
+  hour          CDATA   #REQUIRED
+  minute        CDATA   #REQUIRED
+  second        CDATA   #REQUIRED
+  timezone      CDATA   #REQUIRED
+  depth		CDATA	#REQUIRED
+  locstring	CDATA	#REQUIRED
+  type  	CDATA	#REQUIRED
+  pga		CDATA   #REQUIRED
+  pgv		CDATA   #REQUIRED
+  sp03		CDATA   #REQUIRED
+  sp10		CDATA   #REQUIRED
+  sp30		CDATA   #REQUIRED
+  created	CDATA	#REQUIRED
+>
+]>
+<earthquake id="20110701213820" lat="-8.73" lon="108.66" mag="5.3" year="2011" month="07" day="01" hour="21" minute="33" second="21" timezone="WIB" depth="25" type="ALL" created="110701213820" locstring="Java, Indonesia    " />
+

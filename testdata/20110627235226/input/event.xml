@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<!DOCTYPE earthquake [
+<!ELEMENT  earthquake EMPTY>
+<!ATTLIST earthquake
+  id 		ID	#REQUIRED
+  lat		CDATA	#REQUIRED
+  lon		CDATA	#REQUIRED
+  mag		CDATA	#REQUIRED
+  year          CDATA   #REQUIRED
+  month         CDATA   #REQUIRED
+  day           CDATA   #REQUIRED
+  hour          CDATA   #REQUIRED
+  minute        CDATA   #REQUIRED
+  second        CDATA   #REQUIRED
+  timezone      CDATA   #REQUIRED
+  depth		CDATA	#REQUIRED
+  locstring	CDATA	#REQUIRED
+  type  	CDATA	#REQUIRED
+  pga		CDATA   #REQUIRED
+  pgv		CDATA   #REQUIRED
+  sp03		CDATA   #REQUIRED
+  sp10		CDATA   #REQUIRED
+  sp30		CDATA   #REQUIRED
+  created	CDATA	#REQUIRED
+>
+]>
+<earthquake id="20110627235226" lat="-9.41" lon="122.51" mag="5.6" year="2011" month="06" day="27" hour="23" minute="47" second="15" timezone="WIB" depth="140" type="ALL" created="110627235226" locstring="Savu Sea    " />
+

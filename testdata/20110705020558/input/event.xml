@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<!DOCTYPE earthquake [
+<!ELEMENT  earthquake EMPTY>
+<!ATTLIST earthquake
+  id 		ID	#REQUIRED
+  lat		CDATA	#REQUIRED
+  lon		CDATA	#REQUIRED
+  mag		CDATA	#REQUIRED
+  year          CDATA   #REQUIRED
+  month         CDATA   #REQUIRED
+  day           CDATA   #REQUIRED
+  hour          CDATA   #REQUIRED
+  minute        CDATA   #REQUIRED
+  second        CDATA   #REQUIRED
+  timezone      CDATA   #REQUIRED
+  depth		CDATA	#REQUIRED
+  locstring	CDATA	#REQUIRED
+  type  	CDATA	#REQUIRED
+  pga		CDATA   #REQUIRED
+  pgv		CDATA   #REQUIRED
+  sp03		CDATA   #REQUIRED
+  sp10		CDATA   #REQUIRED
+  sp30		CDATA   #REQUIRED
+  created	CDATA	#REQUIRED
+>
+]>
+<earthquake id="20110705020558" lat="1.27" lon="97.23" mag="5.4" year="2011" month="07" day="05" hour="02" minute="00" second="57" timezone="WIB" depth="57" type="ALL" created="110705020558" locstring="Northern Sumatra, Indonesia   " />
+

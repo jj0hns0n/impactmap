@@ -123,6 +123,8 @@ if __name__ == '__main__':
     # Generate LaTeX document
     filename = create_map(event_name)
 
+    import sys; sys.exit()
+
     # Show
     cmd = 'evince %s &' % filename
     os.system(cmd)
