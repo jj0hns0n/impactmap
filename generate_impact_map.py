@@ -22,7 +22,7 @@ def calculate(shakedata_dir, library_dir, event_name):
 
     event_info, A = calculate_event_info(shakedata_dir, event_name)
     pop_expo, R = calculate_pop_expo(event_info, A, library_dir)
-    C = city_info(R, A, library_dir)
+    C = city_info(R, A, library_dir, event_info)
     cities_on_map(C, 100)
     vec = (event_info['lat'], event_info['lon'])
     hist_eve = list_historical_events(vec, library_dir)
@@ -131,28 +131,28 @@ if __name__ == '__main__':
 
     # Extract original shakemap information as GIS
 
-    grd_filename = event_name + '.grd'
-    asc_filename = event_name + '.asc'
-    tif_filename = event_name + '.tif'
-    shp_filename = event_name + '.shp'
-    cmd = ('cp %s/%s/output/mi.grd %s'
-         % (shakedata_dir, event_name, grd_filename))
-    print cmd
-    os.system(cmd)
+    #grd_filename = event_name + '.grd'
+    #asc_filename = event_name + '.asc'
+    #tif_filename = event_name + '.tif'
+    #shp_filename = event_name + '.shp'
+    #cmd = ('cp %s/%s/output/mi.grd %s'
+     #    % (shakedata_dir, event_name, grd_filename))
+    #print cmd
+    #os.system(cmd)
 
     # Convert grd file to asc and tif
-    cmd = 'python convert_gmt_grid.py %s' % grd_filename
-    os.system(cmd)
+    #cmd = 'python convert_gmt_grid.py %s' % grd_filename
+    #os.system(cmd)
 
     # Contour tif file
-    cmd = '/bin/rm -rf %s' % shp_filename
-    os.system(cmd)
+    #cmd = '/bin/rm -rf %s' % shp_filename
+    #os.system(cmd)
 
-    cmd = 'gdal_contour -i %f %s %s' % (1, tif_filename, shp_filename)
-    print cmd
-    os.system(cmd)
+    #cmd = 'gdal_contour -i %f %s %s' % (1, tif_filename, shp_filename)
+    #print cmd
+    #os.system(cmd)
 
     # View in QGIS
-    basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
-    cmd = 'qgis %s %s %s &' % (basemap, tif_filename, shp_filename)
-    os.system(cmd)
+    #basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
+    #cmd = 'qgis %s %s %s &' % (basemap, tif_filename, shp_filename)
+    #os.system(cmd)
