@@ -143,6 +143,10 @@ class TestCase(unittest.TestCase):
         skip = ['usgs_20081116']
         mismatched = 0
         matched = 0
+        maxerr = 0
+        minerr = 0
+        errcount = 0
+        errsum = 0
         for event_name in os.listdir('testdata'):
             if not event_name.startswith('.') and event_name.startswith('usgs'):
 
@@ -179,6 +183,20 @@ class TestCase(unittest.TestCase):
                     #                                             reference_exposure[event_name][key]))
 
                     # Count how many comparisons are better than 10%
+
+                    if pop_expo[key] > 0:
+                        err = abs(pop_expo[key] - reference_exposure[event_name][key])/pop_expo[key]
+                        #if err == 1.0:
+                        #    print 'Arrg', event_name, key, pop_expo[key], reference_exposure[event_name][key]
+                        if err > maxerr:
+                            maxerr = err
+
+                        if err < minerr:
+                            minerr = err
+
+                        errsum += err
+                        errcount += 1
+
                     if numpy.allclose(pop_expo[key],
                                       reference_exposure[event_name][key],
                                       rtol=1.0e-1, atol=1.0e-1):
@@ -209,7 +227,11 @@ class TestCase(unittest.TestCase):
         print 'Number of matches', matched
         print 'Number of mismatches', mismatched
         print 'Ratio of mismatched:', float(mismatched)/(matched+mismatched)
-       
+
+        print 'Max error:', maxerr
+        print 'Min error:', minerr
+        print 'Avg error:', errsum/errcount
+
        # msg = 'Ratio of comparisons with error worse than 10% exceeded target 0.08'
        # assert float(mismatched)/(matched+mismatched) < 0.08, msg
 
@@ -218,6 +240,7 @@ class TestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     mysuite = unittest.makeSuite(TestCase, 'test')
+    #mysuite = unittest.makeSuite(TestCase, 'test_usgs')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
 
