@@ -51,8 +51,56 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0}}
+                              'usgs_20100509': {'II+III': 1034000,
+                                                'IV': 8907000,
+                                                'V': 1906000,
+                                                'VI': 279000,
+                                                'VII': 397000,
+                                                'VIII': 0,
+                                                'IX': 0,
+                                                'X': 0}}
+                              'usgs_20090930': {'II+III': 269000,
+                                                'IV': 2299000,
+                                                'V': 6350000,
+                                                'VI': 1715000,
+                                                'VII': 3318000,
+                                                'VIII': 1010000,
+                                                'IX': 0,
+                                                'X': 0}}
+                              'usgs_20090902': {'II+III': 8204000,
+                                                'IV': 45112000,
+                                                'V': 25796000,
+                                                'VI': 3247000,
+                                                'VII': 719000,
+                                                'VIII': 0,
+                                                'IX': 0,
+                                                'X': 0}}
+                              'usgs_20110403': {'II+III': 44746000,
+                                                'IV': 22000,
+                                                'V': 0,
+                                                'VI': 0,
+                                                'VII': 0,
+                                                'VIII': 0,
+                                                'IX': 0,
+                                                'X': 0}}
+                              'usgs_20110424': {'II+III': 10000,
+                                                'IV': 3659000,
+                                                'V': 1220000,
+                                                'VI': 254000,
+                                                'VII': 115000,
+                                                'VIII': 16000,
+                                                'IX': 0,
+                                                'X': 0}}
+                              'usgs_20081116': {'II+III': 1112000,
+                                                'IV': 2505000,
+                                                'V': 895000,
+                                                'VI': 653000,
+                                                'VII': 184000,
+                                                'VIII': 68000,
+                                                'IX': 0,
+                                                'X': 0}}
 
-        skip = [] #['usgs_20110716']
+        skip = ['usgs_20110716']
         for event_name in os.listdir('testdata'):
             if not event_name.startswith('.') and event_name.startswith('usgs'):
 
@@ -106,7 +154,7 @@ class TestCase(unittest.TestCase):
 #-------------------------------------------------------------
 
 if __name__ == "__main__":
-    mysuite = unittest.makeSuite(TestCase, 'test')
+    mysuite = unittest.makeSuite(TestCase, 'test_usgs')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
 
