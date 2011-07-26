@@ -137,7 +137,7 @@ def generate_exposure_table(event_info, pop_expo):
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
   \hline
-  \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Estimasi penduduk terexpos pada tingkat getaran yang berbeda}} \\
+  \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Perkiraan penduduk terpapar pada tingkat getaran yang berbeda}} \\
    \hline
   \hline
   \textbf{Intensitas} &
@@ -175,7 +175,7 @@ def generate_exposure_table(event_info, pop_expo):
     fid.write('\\begin{tabular}{|l|c|c|c|c|c|c|c|c|} \n')
     fid.write('\\hline \n')
     fid.write('\\multicolumn{9}{|c|}{\\rule{0pt}{4mm} \\Large '
-              '\\textbf{Estimasi jumlah penduduk terekspos pada setiap tingkat '
+              '\\textbf{Perkiraan jumlah penduduk terpapar pada setiap tingkat '
               'getaran berbeda}} \\\\ \n')
     fid.write('\\hline \n')
     fid.write('\\hline \n')
@@ -198,8 +198,8 @@ def generate_exposure_table(event_info, pop_expo):
                       pop_str['VII'],
                       pop_str['VIII'],
                       pop_str['IX']))
-    fid.write('\\textbf{Getaran dirasakan} & \n')
-    fid.write('Lemah & Lemah & Agak lemah & Moderat & Kuat & Sangat Kuat & Keras & Sangat Keras  \\\\ \n')
+    fid.write('\\textbf{Getaran Dirasakan} & \n')
+    fid.write('Lemah & Lemah & Agak Lemah & Sedang & Kuat & Sangat Kuat & Keras & Sangat Keras  \\\\ \n')
     fid.write('\\noalign{\\hrule height 0.6pt} \n')
     fid.write('\\end{tabular} \n')
 
