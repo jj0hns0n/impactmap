@@ -101,6 +101,8 @@ class TestCase(unittest.TestCase):
                                                 'X': 0}}
 
         skip = ['usgs_20081116']
+        mismatched = 0
+        matched = 0
         for event_name in os.listdir('testdata'):
             if not event_name.startswith('.') and event_name.startswith('usgs'):
 
@@ -130,25 +132,46 @@ class TestCase(unittest.TestCase):
 
                 # All the direct comparisons
                 for key in ['IV', 'V', 'VI', 'VII', 'VIII', 'IX']:
-                    msg = ('Estimated exposure to MMI %s failed for '
-                           'event %s: Got %.0f expected %.0f' % (key,
-                                                                 event_name,
-                                                                 pop_expo[key],
-                                                                 reference_exposure[event_name][key]))
-                    # Accept 5% error for populations unless very small
-                    assert numpy.allclose(pop_expo[key],
-                                          reference_exposure[event_name][key],
-                                          rtol=5.0e-1, atol=1.0e-1), msg
+                    #msg = ('Estimated exposure to MMI %s failed for '
+                    #       'event %s: Got %.0f expected %.0f' % (key,
+                    #                                             event_name,
+                    #                                             pop_expo[key],
+                    #                                             reference_exposure[event_name][key]))
+
+                    # Count how many comparisons are better than 10%
+                    if numpy.allclose(pop_expo[key],
+                                      reference_exposure[event_name][key],
+                                      rtol=1.0e-1, atol=1.0e-1):
+                        matched += 1
+                    else:
+                        mismatched += 1
+
+                    #assert numpy.allclose(pop_expo[key],
+                    #                      reference_exposure[event_name][key],
+                    #                      rtol=1.0e-1, atol=1.0e-1), msg
 
                 # Special case
-                # s = pop_expo['II'] + pop_expo['III']
-                # print 'sum', pop_expo['II'], pop_expo['III']
-                # msg = ('Estimated exposure to MMI levels II and III failed for '
-                #       'event %s: Got %.0f expected %.0f' % (event_name,
-                #                                             s,
-                #                                             reference_exposure[event_name]['II+III']))
+                #s = pop_expo['II'] + pop_expo['III']
+                #print 'sum', pop_expo['II'], pop_expo['III']
+                #msg = ('Estimated exposure to MMI levels II and III failed for '
+                #      'event %s: Got %.0f expected %.0f' % (event_name,
+                #                                            s,
+                #                                            reference_exposure[event_name]['II+III']))
+                #
+                #assert numpy.allclose(s, reference_exposure[event_name]['II+III'], rtol=5.0e-1, atol=1.0e-1), msg
+                #print s, reference_exposure[event_name]['II+III']
+                #if numpy.allclose(s, reference_exposure[event_name]['II+III'], rtol=5.0e-1, atol=1.0e-1):
+                #    matched += 1
+                #else:
+                #    mismatched += 1
 
-                # assert numpy.allclose(s, reference_exposure[event_name]['II+III'], rtol=5.0e-1, atol=1.0e-1), msg
+        #print
+        #print 'Number of matches', matched
+        #print 'Number of mismatches', mismatched
+        #print 'Ratio of mismatched:', float(mismatched)/(matched+mismatched)
+
+        msg = 'Ratio of comparisons with error worse than 10% exceeded target 0.08'
+        assert float(mismatched)/(matched+mismatched) < 0.08, msg
 
 
 #-------------------------------------------------------------
