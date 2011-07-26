@@ -4,11 +4,10 @@ import numpy as np
 from scipy.interpolate import griddata
 
 def pop_expo(event_info,A,path):
-    pkl_file = open(path+'/population/landscan_binary.pkl','r')
+    pkl_file = open(path+'/population/landscan2008_binary.pkl','r')
     ls = pickle.load(pkl_file)
-    #ls = np.flipud(ls)
     pkl_file.close()
-    pkl_file = open(path+'/population/landscan_info.pkl','r')
+    pkl_file = open(path+'/population/landscan2008_info.pkl','r')
     ls_info = pickle.load(pkl_file)
     pkl_file.close()
 

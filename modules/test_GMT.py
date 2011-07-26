@@ -42,10 +42,10 @@ def region_map(event_info, A, R,
     os.system('pscoast '+R+' '+J+' -K -P -O  -Df -W -S192/216/255 >> %s.eps' % basename)
     os.system ('grdcontour mi.grd -C'+mi_cpt+' -W+1.5p '+R+' '+J+' -K -P -O -Q100>> %s.eps' % basename)
 
-    # plot the epicenter
+    # Plot the epicenter
     os.system('echo '+str(event_info['lon'])+' '+str(event_info['lat'])+'| psxy '+R+' '+J+' -K -P -O -Sa0.500 -Gred -W1.5,black >> %s.eps' % basename)
 
-    # plot cities
+    # Plot cities
     os.system('pstext city.txt -J -R -O -K -Gblack>> %s.eps' % basename)
 
     # Generate map as pdf cropped to bounding box
