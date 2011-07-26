@@ -23,7 +23,7 @@ def calculate(shakedata_dir, library_dir, event_name):
     event_info, A = calculate_event_info(shakedata_dir, event_name)
     pop_expo, R = calculate_pop_expo(event_info, A, library_dir)
     C = city_info(R, A, library_dir, event_info)
-    cities_on_map(C, 100)
+    cities_on_map(C, distance_limit=100)
     vec = (event_info['lat'], event_info['lon'])
     hist_eve = list_historical_events(vec, library_dir)
     calculate_location_info(event_info, C)
