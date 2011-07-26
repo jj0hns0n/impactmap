@@ -16,7 +16,7 @@ class TestCase(unittest.TestCase):
         """All test examples run to completion
         """
 
-        print
+        #print
         for event in os.listdir('testdata'):
             if not event.startswith('.'):
                 cmd = 'python generate_impact_map.py %s > /dev/null' % event
@@ -177,7 +177,7 @@ class TestCase(unittest.TestCase):
 #-------------------------------------------------------------
 
 if __name__ == "__main__":
-    mysuite = unittest.makeSuite(TestCase, 'test_usgs')
+    mysuite = unittest.makeSuite(TestCase, 'test')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
 
