@@ -68,7 +68,8 @@ def get_shakemap_urls(url, name=None):
 
     Inputs
         url: URL where shakemap data is published.
-        name: Optional parameter to select one event. If omitted, latest event will be used.
+        name: Optional parameter to select one event.
+              If omitted, latest event will be used.
 
     Output
         Instance of class Shakemap_url containing
@@ -135,6 +136,7 @@ def _get_shakemap_data(url, name=None):
     S = get_shakemap_urls(url, name)
     S.download_data()
     return S.event_name
+
 
 def get_shakemap_data(url, name=None):
     """Get shakemap from website unless already downloaded
