@@ -51,7 +51,7 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20100509': {'II+III': 1034000,
+                              'usgs_20100509': {'II+III': 1034000, # Checked
                                                 'IV': 8907000,
                                                 'V': 1906000,
                                                 'VI': 279000,
@@ -59,7 +59,7 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20090930': {'II+III': 269000,
+                              'usgs_20090930': {'II+III': 269000, # Checked
                                                 'IV': 2299000,
                                                 'V': 6350000,
                                                 'VI': 1715000,
@@ -67,7 +67,7 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 1010000,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20090902': {'II+III': 8204000,
+                              'usgs_20090902': {'II+III': 8204000, # Checked
                                                 'IV': 45112000,
                                                 'V': 25796000,
                                                 'VI': 3247000,
@@ -75,7 +75,7 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20110403': {'II+III': 44746000,
+                              'usgs_20110403': {'II+III': 44746000, # Checked
                                                 'IV': 22000,
                                                 'V': 0,
                                                 'VI': 0,
@@ -83,7 +83,7 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20110424': {'II+III': 10000,
+                              'usgs_20110424': {'II+III': 10000, # Checked
                                                 'IV': 3659000,
                                                 'V': 1220000,
                                                 'VI': 254000,
@@ -91,24 +91,23 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 16000,
                                                 'IX': 0,
                                                 'X': 0},
-                              'usgs_20081116': {'II+III': 1112000,
+                              'usgs_20081116': {'II+III': 1112000, # Checked
                                                 'IV': 2505000,
                                                 'V': 895000,
                                                 'VI': 653000,
                                                 'VII': 184000,
-                                                'VIII': 68000,
+                                                'VIII': 68,
                                                 'IX': 0,
                                                 'X': 0},
-
-                             'usgs_20110626': {'II+III': 919000,
+                             'usgs_20110626': {'II+III': 919000,  # Checked
                                                 'IV': 347000,
                                                 'V': 83000,
                                                 'VI': 15000,
-                                                'VII': 21000,
+                                                'VII': 21,
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                             'usgs_20101026': {'II+III': 3554000,
+                             'usgs_20101026': {'II+III': 3554000, # Checked
                                                 'IV': 186000,
                                                 'V': 24000,
                                                 'VI': 8000,
@@ -116,37 +115,40 @@ class TestCase(unittest.TestCase):
                                                 'VIII': 0,
                                                 'IX': 0,
                                                 'X': 0},
-                            'usgs_20101116': {'II+III': 0,
-                                                'IV': 551000,
-                                                'V': 49000,
-                                                'VI': 11000,
-                                                'VII': 8000,
-                                                'VIII': 1000,
-                                                'IX': 0,
-                                                'X': 0},
-                           'usgs_20110215': {'II+III': 93000,
-                                                'IV': 11518000,
-                                                'V': 258000,
-                                                'VI': 32000,
-                                                'VII': 279000,
-                                                'VIII': 2000,
-                                                'IX': 0,
-                                                'X': 0},
-                           'usgs_20110526': {'II+III': 2000,
-                                                'IV': 1654000,
-                                                'V': 515000,
-                                                'VI': 85000,
-                                                'VII': 1000,
-                                                'VIII': 0,
-                                                'IX': 0,
-                                                'X': 0}}
-        skip = ['usgs_20081116']
+                            'usgs_20101116': {'II+III': 0, # Checked
+                                              'IV': 551000,
+                                              'V': 49000,
+                                              'VI': 11000,
+                                              'VII': 8000,
+                                              'VIII': 1000,
+                                              'IX': 0,
+                                              'X': 0},
+                           'usgs_20110215': {'II+III': 93000, # Checked
+                                             'IV': 11518000,
+                                             'V': 258000,
+                                             'VI': 32000,
+                                             'VII': 279000,
+                                             'VIII': 2000,
+                                             'IX': 0,
+                                             'X': 0},
+                           'usgs_20110526': {'II+III': 2000, # Checked
+                                             'IV': 1654000,
+                                             'V': 515000,
+                                             'VI': 85,
+                                             'VII': 1000,
+                                             'VIII': 0,
+                                             'IX': 0,
+                                             'X': 0}}
+        skip = []
         mismatched = 0
-        matched = 0
+        within_10pct = 0
+        between_10_and_20pct = 0
         maxerr = 0
         minerr = 0
         errcount = 0
         errsum = 0
+        print
+
         for event_name in os.listdir('testdata'):
             if not event_name.startswith('.') and event_name.startswith('usgs'):
 
@@ -184,56 +186,91 @@ class TestCase(unittest.TestCase):
 
                     # Count how many comparisons are better than 10%
 
-                    if pop_expo[key] > 0:
-                        err = abs(pop_expo[key] - reference_exposure[event_name][key])/pop_expo[key]
-                        #if err == 1.0:
-                        #    print 'Arrg', event_name, key, pop_expo[key], reference_exposure[event_name][key]
-                        if err > maxerr:
-                            maxerr = err
+                    denom = max(pop_expo[key], reference_exposure[event_name][key])
+                    if denom > 0:
+                        err = abs(pop_expo[key] - reference_exposure[event_name][key])/denom
+                    else:
+                        err = abs(pop_expo[key] - reference_exposure[event_name][key])
 
-                        if err < minerr:
-                            minerr = err
+                    if err > maxerr:
+                        maxerr = err
 
-                        errsum += err
-                        errcount += 1
+                    if err < minerr:
+                        minerr = err
+
+                    errsum += err
+                    errcount += 1
+
 
                     if numpy.allclose(pop_expo[key],
                                       reference_exposure[event_name][key],
-                                      rtol=1.0e-1, atol=1.0e-1):
-                        matched += 1
+                                      rtol=1e-1, atol=1000) or abs(pop_expo[key] - reference_exposure[event_name][key]) < 5000:
+                        within_10pct += 1
+                        #print 'Match', event_name, key, pop_expo[key], reference_exposure[event_name][key]
+                    elif numpy.allclose(pop_expo[key],
+                                      reference_exposure[event_name][key],
+                                      rtol=2.0e-1, atol=1000):
+                        between_10_and_20pct += 1
                     else:
                         mismatched += 1
+                        print 'Mismatch', event_name, key, pop_expo[key], reference_exposure[event_name][key], err
 
                     #assert numpy.allclose(pop_expo[key],
                     #                      reference_exposure[event_name][key],
                     #                      rtol=1.0e-1, atol=1.0e-1), msg
 
-                # Special case
-                #s = pop_expo['II'] + pop_expo['III']
+                # Special case - FIXME (Ole): Why are these generally so bad?
+                s = pop_expo['II'] + pop_expo['III']
                 #print 'sum', pop_expo['II'], pop_expo['III']
                 #msg = ('Estimated exposure to MMI levels II and III failed for '
                 #      'event %s: Got %.0f expected %.0f' % (event_name,
                 #                                            s,
                 #                                            reference_exposure[event_name]['II+III']))
-                #
-                #assert numpy.allclose(s, reference_exposure[event_name]['II+III'], rtol=5.0e-1, atol=1.0e-1), msg
-                #print s, reference_exposure[event_name]['II+III']
-                #if numpy.allclose(s, reference_exposure[event_name]['II+III'], rtol=5.0e-1, atol=1.0e-1):
-                #    matched += 1
-                #else:
-                #    mismatched += 1
+
+                # key = 'II+III'
+                # denom = max(s, reference_exposure[event_name][key])
+                # if denom > 0:
+                #     err = abs(s - reference_exposure[event_name][key])/denom
+                # else:
+                #     err = abs(s - reference_exposure[event_name][key])
+
+                # if err > maxerr:
+                #     maxerr = err
+
+                # if err < minerr:
+                #     minerr = err
+
+                # errsum += err
+                # errcount += 1
+
+
+                # if numpy.allclose(s,
+                #                   reference_exposure[event_name][key],
+                #                   rtol=1e-1, atol=1000) or abs(s - reference_exposure[event_name][key]) < 5000:
+                #     within_10pct += 1
+                # elif numpy.allclose(s,
+                #                     reference_exposure[event_name][key],
+                #                     rtol=2.0e-1, atol=1000):
+                #     between_10_and_20pct += 1
+                # else:
+                #     mismatched += 1
+                #     print 'Mismatch', event_name, key, s, reference_exposure[event_name][key], err
 
         #print
-        print 'Number of matches', matched
+        mismatch_ratio = float(mismatched)/(within_10pct+between_10_and_20pct+mismatched)
+        print 'Number of matches within 10%', within_10pct
+        print 'Number of matches between 10% and 20%:', between_10_and_20pct
         print 'Number of mismatches', mismatched
-        print 'Ratio of mismatched:', float(mismatched)/(matched+mismatched)
+        print 'Ratio of mismatched:', mismatch_ratio
 
         print 'Max error:', maxerr
         print 'Min error:', minerr
         print 'Avg error:', errsum/errcount
 
-       # msg = 'Ratio of comparisons with error worse than 10% exceeded target 0.08'
-       # assert float(mismatched)/(matched+mismatched) < 0.08, msg
+        assert within_10pct > 70
+
+        msg = 'Ratio of comparisons with error worse than 20% exceeded target 0.03'
+        assert mismatch_ratio < 0.03, msg
 
 
 #-------------------------------------------------------------
