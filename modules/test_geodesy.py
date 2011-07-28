@@ -12,12 +12,12 @@ class TestCase(unittest.TestCase):
 
         self.eps = 0.001    # Accept 0.1 % relative error
 
-        self.RSISE = Point(-35.27456,149.12065)
-        self.Home = Point(-35.25629,149.12494)     # 28 Scrivener Street, ACT
-        self.Syd = Point(-33.93479,151.16794)      # Sydney Airport
-        self.Nadi = Point(-17.75330,177.45148)     # Nadi Airport
-        self.Kobenhavn = Point(55.70248, 12.58364) # Kobenhavn, Denmark
-        self.Muncar = Point(-8.43, 114.33)         # Muncar, Indonesia
+        self.RSISE = Point(-35.27456, 149.12065)
+        self.Home = Point(-35.25629, 149.12494)     # 28 Scrivener Street, ACT
+        self.Syd = Point(-33.93479, 151.16794)      # Sydney Airport
+        self.Nadi = Point(-17.75330, 177.45148)     # Nadi Airport
+        self.Kobenhavn = Point(55.70248, 12.58364)  # Kobenhavn, Denmark
+        self.Muncar = Point(-8.43, 114.33)          # Muncar, Indonesia
 
 
     def testBearingNorth(self):
@@ -26,8 +26,8 @@ class TestCase(unittest.TestCase):
 
         eps = 1.0e-12
 
-        p1 = Point(0.0,0.0)
-        p2 = Point(1.0,0.0)
+        p1 = Point(0.0, 0.0)
+        p2 = Point(1.0, 0.0)
 
         b = p1.bearing_to(p2)
         msg = 'Computed northward bearing: %d, Should have been: %d' % (b, 0)
@@ -40,8 +40,8 @@ class TestCase(unittest.TestCase):
         eps = 1.0e-12
         B = 180  # True bearing
 
-        p1 = Point(0.0,0.0)
-        p2 = Point(1.0,0.0)
+        p1 = Point(0.0, 0.0)
+        p2 = Point(1.0, 0.0)
 
         b = p2.bearing_to(p1)
         msg = 'Computed southward bearing %d. Expected %d' % (b, B)
@@ -54,8 +54,8 @@ class TestCase(unittest.TestCase):
         eps = 1.0e-12
         B = 90  # True bearing
 
-        p1 = Point(0.0,0.0)
-        p3 = Point(0.0,1.0)
+        p1 = Point(0.0, 0.0)
+        p3 = Point(0.0, 1.0)
 
         b = p1.bearing_to(p3)
         msg = 'Computed southward bearing %d. Expected %d' % (b, B)
@@ -69,8 +69,8 @@ class TestCase(unittest.TestCase):
         eps = 1.0e-12
         B = 270  # True bearing
 
-        p1 = Point(0.0,0.0)
-        p3 = Point(0.0,1.0)
+        p1 = Point(0.0, 0.0)
+        p3 = Point(0.0, 1.0)
 
         b = p3.bearing_to(p1)
         msg = 'Computed southward bearing %d. Expected %d' % (b, B)
@@ -81,8 +81,8 @@ class TestCase(unittest.TestCase):
         """Distance and bearing of real example (RSISE -> Home) are correct
         """
 
-        D = 2068.855   # True Distance to Home
-        B = 11     # True Bearing to Home
+        D = 2068.855  # True Distance to Home
+        B = 11        # True Bearing to Home
 
         d = self.RSISE.distance_to(self.Home)
         msg = 'Dist from RSISE to Home %f. Expected %f' % (d, D)
@@ -145,7 +145,7 @@ class TestCase(unittest.TestCase):
 
         B = 26  # 26 19 42 / 26 13 57  # Bearing to between points (start, end)
 
-        p1 = Point(-9.65, 113.72)
+        p1 = Point(latitude=-9.65, longitude=113.72)
 
         d = p1.distance_to(self.Muncar)
         msg = 'Dist to Muncar failed %f. Expected %f' % (d, D)
