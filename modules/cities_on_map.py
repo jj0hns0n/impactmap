@@ -1,5 +1,5 @@
 import numpy
-import points2distance
+from geodesy import Point
 import os
 
 
@@ -29,12 +29,13 @@ def cities_on_map(A, distance_limit=100):
 
         # Find cities more than distance_limit km away from city b (anchor city)
         for i in range(len(T)):
-            start = ((A['lon'][b],0,0),(A['lat'][b],0,0))      # Anchor city
-            end = ((A['lon'][T[i]],0,0),(A['lat'][T[i]],0,0))  # Other city
-            r = points2distance.points2distance(start,end)
+            k = T[i]  # Index of other city
+            start = Point(latitude=A['lat'][b], longitude=A['lon'][b])  # Anchor city
+            end = Point(latitude=A['lat'][k], longitude=A['lat'][k])    # Other city
+            r = start.distance_to(end)
             if r >= distance_limit:
                 # Select city i because it is sufficiently far away from anchor city
-                T2 += [(T[i])]
+                T2 += [(k)]
 
         # Determine whether to use more cities or not
         if len(T2) > 1:

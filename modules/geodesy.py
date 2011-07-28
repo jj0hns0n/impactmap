@@ -44,7 +44,15 @@ class Point:
     degrees2radians = pi/180.0
 
 
-    def __init__(self, latitude, longitude):
+    def __init__(self, latitude=None, longitude=None):
+
+        if latitude is None:
+            msg = 'Argument latitude must be specified to Point constructor'
+            raise Exception(msg)
+
+        if longitude is None:
+            msg = 'Argument longitude must be specified to Point constructor'
+            raise Exception(msg)
 
         msg = 'Specified latitude %f was out of bounds' % latitude
         assert(latitude >= -90 and latitude <= 90.0), msg
