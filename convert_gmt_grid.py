@@ -27,7 +27,8 @@ if __name__ == '__main__':
         sldfile = basename + '.sld'
 
         # Convert to ASCII using GDAL
-        s = ('gdal_translate -a_nodata -9999 -a_srs EPSG:4326 -of AAIGrid '
+        s = ('gdal_translate -a_nodata -9999 -a_srs EPSG:4326 '
+             '-of AAIGrid -co FORCE_CELLSIZE=TRUE '
              '%s %s' % (infile, ascfile))
         print s
         os.system(s)
@@ -42,11 +43,11 @@ if __name__ == '__main__':
         fid = open(ascfile, 'w')
 
         # Write headers back
-        for line in lines[:6]:
+        for line in lines[:5]:
             fid.write(line)
 
         # Write data lines in reverse order
-        data = lines[6:]
+        data = lines[5:]
         for line in data[::-1]:
             fid.write(line)
 
