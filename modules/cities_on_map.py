@@ -1,6 +1,6 @@
 import numpy
-from geodesy import Point
 import os
+from geodesy import Point
 
 
 def cities_on_map(A, distance_limit=100):

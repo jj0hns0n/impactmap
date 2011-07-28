@@ -1,6 +1,6 @@
 import numpy as np
 from utilities import make_grid
-import points2distance
+from geodesy import Point
 import sys
 
 # Dtype for internal representation of cities
@@ -43,9 +43,9 @@ def city_info(R, B, path, eve_info):
         eve_lat = float(eve_info['lat'])
         min_dist = sys.maxint
         for i in range(len(A)):
-            start = ((A['lon'][i],0,0), (A['lat'][i],0,0))
-            end = ((eve_lon,0,0), (eve_lat,0,0))
-            dis = points2distance.points2distance(start,end)
+            start = Point(latitude=A['lat'][i], longitude=A['lon'][i])
+            end = Point(latitude=eve_lat, longitude=eve_lon)
+            dis = start.distance_to(end)
             if dis < min_dist:
                 min_dist = dis
                 index = i
