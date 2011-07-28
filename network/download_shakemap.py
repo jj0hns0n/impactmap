@@ -4,8 +4,7 @@
 import os
 import urllib2
 
-url = 'ftp://geospasial.bnpb.go.id'
-shakedata = os.environ['SHAKEDATA']
+shakedata_dir = os.environ['SHAKEDATA']
 
 class Shakemap_url:
     """Class to abstract url pairs for shakemap data
@@ -47,11 +46,11 @@ class Shakemap_url:
 
             # Move to $SHAKEDATA
             cmd = 'cd usr/local/smap/data; /bin/cp -rf %s %s' % (self.event_name,
-                                                                 shakedata)
+                                                                 shakedata_dir)
             os.system(cmd)
 
         print ('Shakemap data available in:'
-               '%s' % (os.path.join(shakedata, self.event_name)))
+               '%s' % (os.path.join(shakedata_dir, self.event_name)))
         return self.event_name
 
 
@@ -109,12 +108,13 @@ def get_shakemap_urls(url, name=None):
     return Shakemap_url(name, inputdata_url, outputdata_url)
 
 
-def get_shakemap_data(url, name=None):
-    """Get newest shakemap from website
+def _get_shakemap_data(url, name=None):
+    """Get shakemap from website
 
     Input
         url: URL where shakemap data is located
-        name: Optional argument specifying which one is requested. If omitted, the lates will be used.
+        name: Optional argument specifying which one is requested.
+              If omitted, the latest will be used.
 
     If shakemap has already been downloaded, use local copy
 
@@ -128,6 +128,42 @@ def get_shakemap_data(url, name=None):
     S = get_shakemap_urls(url, name)
     S.download_data()
     return S.event_name
+
+def get_shakemap_data(url, name=None):
+    """Get shakemap from website unless already downloaded
+
+    Input
+        url: URL where shakemap data is located
+        name: Optional argument specifying which one is requested.
+              If omitted, the latest will be used.
+
+    If shakemap has already been downloaded, use local copy
+    """
+
+    if name is None:
+        # Get latest shakemap (in case no event was specified)
+        event_name = _get_shakemap_data(url)
+    else:
+        # Extract event name from URL if that is the case
+        event_name = name
+        if event_name.startswith(url):
+            msg = 'Expected event name %s to end with .zip' % event_name
+            assert event_name.endswith('.zip'), msg
+
+            event_name = event_name.split('/')[-1]
+            event_name = event_name.split('.')[0]
+
+
+        # If it doesn't exist, try to get it from web site
+        if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
+            event_name = _get_shakemap_data(url, event_name)
+
+
+    # Clean event_name just in case someone pasted a dirname
+    if event_name.endswith('/'):
+        event_name = event_name[:-1]
+
+    return event_name
 
 
 def _read_contents(url):
