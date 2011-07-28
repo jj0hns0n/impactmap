@@ -83,8 +83,7 @@ if __name__ == '__main__':
     makedir('temp')
     makedir('logs')
 
-
-    # FIXME: Refactor this in to one function call
+    # Get shakemap event data
     if len(sys.argv) == 1:
         # Get latest shakemap (in case no event was specified)
         event_name = None
@@ -109,36 +108,7 @@ if __name__ == '__main__':
     # Generate LaTeX document
     filename = create_map(event_name)
 
-    import sys; sys.exit()
-
     # Show
-    cmd = 'evince %s &' % filename
-    os.system(cmd)
-
-    # Extract original shakemap information as GIS
-
-    #grd_filename = event_name + '.grd'
-    #asc_filename = event_name + '.asc'
-    #tif_filename = event_name + '.tif'
-    #shp_filename = event_name + '.shp'
-    #cmd = ('cp %s/%s/output/mi.grd %s'
-     #    % (shakedata_dir, event_name, grd_filename))
-    #print cmd
+    #cmd = 'evince %s &' % filename
     #os.system(cmd)
 
-    # Convert grd file to asc and tif
-    #cmd = 'python convert_gmt_grid.py %s' % grd_filename
-    #os.system(cmd)
-
-    # Contour tif file
-    #cmd = '/bin/rm -rf %s' % shp_filename
-    #os.system(cmd)
-
-    #cmd = 'gdal_contour -i %f %s %s' % (1, tif_filename, shp_filename)
-    #print cmd
-    #os.system(cmd)
-
-    # View in QGIS
-    #basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
-    #cmd = 'qgis %s %s %s &' % (basemap, tif_filename, shp_filename)
-    #os.system(cmd)
