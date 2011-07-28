@@ -26,3 +26,5 @@ def makedir(newdir):
         #print "_mkdir %s" % repr(newdir)
         if tail:
             os.mkdir(newdir)
+
+    return newdir

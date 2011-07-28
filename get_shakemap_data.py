@@ -3,10 +3,12 @@
 
 import sys
 import os
-
 from network.download_shakemap import get_shakemap_data
+from utilities import makedir
 
 if __name__ == '__main__':
+
+    work_dir = makedir('shakemap_data')
 
     shakedata_dir = os.environ['SHAKEDATA']
     library_dir = os.environ['IMPACTLIB']
@@ -30,30 +32,32 @@ if __name__ == '__main__':
     asc_filename = event_name + '.asc'
     tif_filename = event_name + '.tif'
     shp_filename = event_name + '.shp'
-    cmd = ('cp %s/%s/output/mi.grd %s'
-           % (shakedata_dir, event_name, grd_filename))
+    cmd = ('cp %s/%s/output/mi.grd %s/%s'
+           % (shakedata_dir, event_name, work_dir, grd_filename))
     print cmd
     os.system(cmd)
 
     # Convert grd file to asc and tif
-    cmd = 'python convert_gmt_grid.py %s' % grd_filename
+    cmd = 'python convert_gmt_grid.py %s/%s' % (work_dir, grd_filename)
     os.system(cmd)
 
     # Contour tif file
-    cmd = '/bin/rm -rf %s' % shp_filename
+    cmd = '/bin/rm -rf %s/%s' % (work_dir, shp_filename)
     os.system(cmd)
 
-    cmd = 'gdal_contour -i %f %s %s' % (1, tif_filename, shp_filename)
+    cmd = 'cd %s; gdal_contour -i %f %s %s' % (work_dir, 1,
+                                               tif_filename, shp_filename)
     print cmd
     os.system(cmd)
 
     print
     print 'Finished receiving shakemap data'
-    print 'Shakemap surface available in: %s and %s' % (asc_filename,
-                                                        tif_filename)
-    print 'Shakemap contour available in: %s' % shp_filename
+    print ('Shakemap surface available in: %s/%s '
+           'and %s/%s' % (work_dir, asc_filename, work_dir, tif_filename))
+    print 'Shakemap contour available in: %s/%s' % (work_dir, shp_filename)
 
     # View in QGIS
     #basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
-    #cmd = 'qgis %s %s %s &' % (basemap, tif_filename, shp_filename)
+    #cmd = 'cd %s; qgis %s %s %s &' % (work_dir, basemap,
+    #                                  tif_filename, shp_filename)
     #os.system(cmd)

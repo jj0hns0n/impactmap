@@ -44,8 +44,6 @@ def create_mapcomponents(event_info, event_name, pop_exp, A, R, C):
     generate_event_header(event_info)
     generate_exposure_table(event_info, pop_expo)
 
-    # Clean up
-    cmd = ''
 
 def create_map(event_name):
     """Assemble components into final exposure map
