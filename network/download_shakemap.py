@@ -9,11 +9,15 @@ shakedata_dir = os.environ['SHAKEDATA']
 class Shakemap_url:
     """Class to abstract url pairs for shakemap data
 
-    Shakemap data urls come in pairs of the form with input and output data separate
+    Shakemap data urls come in pairs of the form with input and
+    output data separate
 
     ftp://geospasial.bnpb.go.id/20110627235226.inp.zip
     ftp://geospasial.bnpb.go.id/20110627235226.out.zip
-    """
+
+    This class represents these two urls along with the event name itself
+    event_name: Name common to the two urls, e.g. '20110627235226'
+     """
 
     def __init__(self, event_name, inputdata_url, outputdata_url):
         self.event_name = event_name
@@ -45,8 +49,13 @@ class Shakemap_url:
             os.system(cmd)
 
             # Move to $SHAKEDATA
-            cmd = 'cd usr/local/smap/data; /bin/cp -rf %s %s' % (self.event_name,
-                                                                 shakedata_dir)
+            cmd = ('cd usr/local/smap/data; '
+                   '/bin/cp -rf %s %s' % (self.event_name,
+                                          shakedata_dir))
+            os.system(cmd)
+
+            # Clean up
+            cmd = '/bin/rm -rf %s; /bin/rm -rf usr' % filename
             os.system(cmd)
 
         print ('Shakemap data available in:'
@@ -62,10 +71,8 @@ def get_shakemap_urls(url, name=None):
         name: Optional parameter to select one event. If omitted, latest event will be used.
 
     Output
-        event_name: Name common to the two urls, e.g. '20110627235226'
-        url_pair: Pair of urls for selected event. E.g.
-                  ['ftp://geospasial.bnpb.go.id/20110627235226.inp.zip',
-                   'ftp://geospasial.bnpb.go.id/20110627235226.out.zip']
+        Instance of class Shakemap_url containing
+        event_name
     """
 
     print 'Reading shakemap data from %s' % url
@@ -142,22 +149,23 @@ def get_shakemap_data(url, name=None):
 
     if name is None:
         # Get latest shakemap (in case no event was specified)
-        event_name = _get_shakemap_data(url)
+        S = get_shakemap_urls(url, name)
+        event_name = S.event_name
     else:
-        # Extract event name from URL if that is the case
-        event_name = name
-        if event_name.startswith(url):
-            msg = 'Expected event name %s to end with .zip' % event_name
-            assert event_name.endswith('.zip'), msg
+        if name.startswith(url):
+            # Extract event name from URL if that is the case
+            msg = 'Expected event name %s to end with .zip' % name
+            assert name.endswith('.zip'), msg
 
-            event_name = event_name.split('/')[-1]
+            event_name = name.split('/')[-1]
             event_name = event_name.split('.')[0]
+        else:
+            # Else use name as provided
+            event_name = name
 
-
-        # If it doesn't exist, try to get it from web site
-        if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
-            event_name = _get_shakemap_data(url, event_name)
-
+    # If it doesn't exist, try to get it from web site
+    if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
+        event_name = _get_shakemap_data(url, event_name)
 
     # Clean event_name just in case someone pasted a dirname
     if event_name.endswith('/'):
