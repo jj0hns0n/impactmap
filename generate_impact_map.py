@@ -8,7 +8,7 @@ from modules.pop_expo import pop_expo as calculate_pop_expo
 from modules.city_info import city_info
 from modules.cities_on_map import cities_on_map
 from modules.list_historical_events import list_historical_events
-from modules.test_GMT import region_map
+from modules.region_map import region_map
 from modules.city_table import city_table
 from modules.mini_indonesia import mini_indonesia
 from modules.exposure import exposure
