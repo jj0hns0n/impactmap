@@ -7,7 +7,6 @@ from modules.calculate_location_info import calculate_location_info
 from modules.pop_expo import pop_expo as calculate_pop_expo
 from modules.city_info import city_info
 from modules.cities_on_map import cities_on_map
-from modules.list_historical_events import list_historical_events
 from modules.region_map import region_map
 from modules.city_table import city_table
 from modules.mini_indonesia import mini_indonesia
@@ -25,7 +24,7 @@ def calculate(shakedata_dir, library_dir, event_name):
     C = city_info(R, A, library_dir, event_info)
     cities_on_map(C, distance_limit=100)
     vec = (event_info['lat'], event_info['lon'])
-    hist_eve = list_historical_events(vec, library_dir)
+    #hist_eve = list_historical_events(vec, library_dir)
     calculate_location_info(event_info, C)
     return event_info, pop_expo, A, R, C
 
@@ -110,6 +109,6 @@ if __name__ == '__main__':
     filename = create_map(event_name)
 
     # Show
-    #cmd = 'evince %s &' % filename
-    #os.system(cmd)
+    cmd = 'cp %s /var/www/.' % filename
+    os.system(cmd)
 
