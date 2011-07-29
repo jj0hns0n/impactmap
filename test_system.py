@@ -5,12 +5,93 @@ import os
 
 from modules.event_info import event_info as calculate_event_info
 from modules.pop_expo import pop_expo as calculate_pop_expo
+from modules.city_info import city_info
+from modules.cities_on_map import cities_on_map
 
-#-------------------------------------------------------------
 
 os.environ['SHAKEDATA'] = 'testdata'
+shakedata_dir = os.environ['SHAKEDATA']
+library_dir = os.environ['IMPACTLIB']
+
 
 class TestCase(unittest.TestCase):
+
+
+    def test_city_placement_on_map(self):
+        """Cities are placed correctly on map
+        """
+
+        event_name = 'BNPB-SCENARIO'
+
+        expected_result = {10: ['Loa',
+                                'Samarinda',
+                                'Balikpapan',
+                                'Bontang',
+                                'Palu',
+                                'Majene',
+                                'Rantepao',
+                                'Poso',
+                                'Baolan',
+                                'Polewali',
+                                'Pare',
+                                'Kota',
+                                'Palopo'],
+                           100: ['Loa',
+                                 'Palu',
+                                 'Majene',
+                                 'Rantepao',
+                                 'Poso',
+                                 'Baolan',
+                                 'Kota'],
+                           200: ['Loa',
+                                 'Palu',
+                                 'Majene',
+                                 'Kota'],
+                           500: ['Loa']}
+
+        # Run test for a range of distance limits
+        for d in [10]: #, 100, 200, 500]:
+
+            # Clean up first. FIXME (Ole): Move this to function
+            cmd = '/bin/rm -rf city.txt'
+            os.system(cmd)
+
+            # Check that reference data exists
+            msg = 'There is no reference data for distance_limit %i' % d
+            assert d in expected_result, msg
+
+            # Run
+            event_info, A = calculate_event_info(shakedata_dir, event_name)
+            pop_expo, R = calculate_pop_expo(event_info, A, library_dir)
+            C = city_info(R, A, library_dir, event_info)
+            cities_on_map(C, distance_limit=d)
+
+            # Verify result against reference data
+            fid = open('city.txt')
+            for i, line in enumerate(fid.readlines()):
+                print line.strip()
+                fields = line.strip().split()
+                city = fields[-1]
+
+                try:
+                    ref_city = expected_result[d][i]
+                except IndexError, e:
+                    msg = ('%s: Insufficient reference data for '
+                           'distance_limit %i and city %s. '
+                           'Invalid index was %i'
+                           % (e, d, city, i))
+                    raise Exception(msg)
+
+                # Check that city names match
+                msg = ('Cities do not match: Got %s but expected %s'
+                       % (city, ref_city))
+                assert city == ref_city, msg
+
+
+        # Clean up
+        cmd = '/bin/rm -rf city.txt'
+        os.system(cmd)
+
 
     def test_examples_run(self):
         """All test examples run to completion
@@ -31,9 +112,6 @@ class TestCase(unittest.TestCase):
     def test_usgs_cases(self):
         """Calculated values match those from the USGS
         """
-
-        shakedata_dir = os.environ['SHAKEDATA']
-        library_dir = os.environ['IMPACTLIB']
 
         reference_exposure = {'usgs_20110614': {'II+III': 120000,
                                                 'IV': 12894000,
@@ -277,7 +355,7 @@ class TestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     mysuite = unittest.makeSuite(TestCase, 'test')
-    #mysuite = unittest.makeSuite(TestCase, 'test_usgs')
+    mysuite = unittest.makeSuite(TestCase, 'test_city')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
 
