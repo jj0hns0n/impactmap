@@ -50,7 +50,7 @@ class TestCase(unittest.TestCase):
                            500: ['Loa']}
 
         # Run test for a range of distance limits
-        for d in [10]: #, 100, 200, 500]:
+        for d in [10, 100, 200, 500]:
 
             # Clean up first. FIXME (Ole): Move this to function
             cmd = '/bin/rm -rf city.txt'
@@ -69,7 +69,6 @@ class TestCase(unittest.TestCase):
             # Verify result against reference data
             fid = open('city.txt')
             for i, line in enumerate(fid.readlines()):
-                print line.strip()
                 fields = line.strip().split()
                 city = fields[-1]
 
@@ -94,11 +93,10 @@ class TestCase(unittest.TestCase):
 
 
     def test_examples_run(self):
-        """All test examples run to completion
+        """First 10 test examples run to completion
         """
 
-        #print
-        for event in os.listdir('testdata'):
+        for event in os.listdir('testdata')[:10]:
             if not event.startswith('.'):
                 cmd = 'python generate_impact_map.py %s > /dev/null' % event
                 #print cmd
@@ -355,7 +353,6 @@ class TestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     mysuite = unittest.makeSuite(TestCase, 'test')
-    mysuite = unittest.makeSuite(TestCase, 'test_city')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
 
