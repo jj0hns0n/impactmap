@@ -96,16 +96,21 @@ class TestCase(unittest.TestCase):
         """First 10 test examples run to completion
         """
 
-        for event in os.listdir('testdata')[:10]:
-            if not event.startswith('.'):
-                cmd = 'python generate_impact_map.py %s > /dev/null' % event
-                #print cmd
-                err = os.system(cmd)
+        k = 0
+        for event in os.listdir('testdata'):
+            if os.path.isdir(event):
+                if not event.startswith('.'):
+                    cmd = 'python generate_impact_map.py %s > /dev/null' % event
+                    err = os.system(cmd)
 
-                msg = 'Event %s failed with error code %i' % (event, err)
-                assert err == 0, msg
-                assert os.path.isfile('eartquake_impact_map_%s.pdf' % event)
+                    msg = 'Event %s failed with error code %i' % (event, err)
+                    assert err == 0, msg
+                    assert os.path.isfile('eartquake_impact_map_%s.pdf' % event)
 
+                    k += 1
+
+            if k > 10:
+                break
 
     def test_usgs_cases(self):
         """Calculated values match those from the USGS
