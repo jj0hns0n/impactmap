@@ -52,10 +52,6 @@ class TestCase(unittest.TestCase):
         # Run test for a range of distance limits
         for d in [10, 100, 200, 500]:
 
-            # Clean up first. FIXME (Ole): Move this to function
-            cmd = '/bin/rm -rf city.txt'
-            os.system(cmd)
-
             # Check that reference data exists
             msg = 'There is no reference data for distance_limit %i' % d
             assert d in expected_result, msg
