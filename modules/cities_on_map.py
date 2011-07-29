@@ -54,9 +54,14 @@ def cities_on_map(A, distance_limit=100):
             # If no cities were found exit loop
             break
 
+    # Make sure there is no old file hanging around
+    cmd = '/bin/rm -rf city.txt'
+    os.system(cmd)
+
     # Record selected cities in GMT file
+    city_filename = 'city.txt'
     for i in index:
-        cmd = 'cat << END >> city.txt'+'\n'+''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+'END'
+        cmd = 'cat << END >> %s' % city_filename + '\n'+''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+'END'
         os.system(cmd)
 
 
