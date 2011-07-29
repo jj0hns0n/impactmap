@@ -98,7 +98,7 @@ class TestCase(unittest.TestCase):
 
         k = 0
         for event in os.listdir('testdata'):
-            if os.path.isdir(event):
+            if os.path.isdir(os.path.join('testdata', event)):
                 if not event.startswith('.'):
                     cmd = 'python generate_impact_map.py %s > /dev/null' % event
                     err = os.system(cmd)
@@ -353,8 +353,6 @@ class TestCase(unittest.TestCase):
         msg = 'Ratio of comparisons with error worse than 20% exceeded target 0.03'
         assert mismatch_ratio < 0.03, msg
 
-
-#-------------------------------------------------------------
 
 if __name__ == "__main__":
     mysuite = unittest.makeSuite(TestCase, 'test')
