@@ -1,0 +1,23 @@
+<info evid="test_aifdr_se" tags="grind_time,datafiles,src_mech,faultfiles,median_dist,map_bound,sitecorr_regime,site_correction,pgm2mi,miscale,mi2pgm,GMPE,bias,bias_log_amp,mi_bias,pga_max,pgv_max,mi_max,psa03_max,psa10_max,psa30_max">
+  <tag name="grind_time" value="Fri 29 Jul 2011 12:39:34 EST&#10;" desc="Start time for event processing" />
+  <tag name="datafiles" value="" desc="List of input files" />
+  <tag name="src_mech" value="ALL" desc="Source mechanism (based on gmpe)" />
+  <tag name="faultfiles" value="eve_fault.txt" desc="List of fault files" />
+  <tag name="median_dist" value="no" desc="Median distance used" />
+  <tag name="map_bound" value="115.500000/121.500000/-4.000000/2.000000" desc="Boundary of event map" />
+  <tag name="sitecorr_regime" value="active" desc="Computed site correction regime (stable|active)" />
+  <tag name="site_correction" value="custom" desc="[custom] or site corr file" />
+  <tag name="pgm2mi" value="GMICE::Wald99 - Wald, et al.; 1999" desc="Intensity Function" />
+  <tag name="miscale" value="scale_wald99.ps" desc="Intensity Scale" />
+  <tag name="mi2pgm" value="GMICE::Wald99 - Wald, et al.; 1999" desc="Inverse Intensity Function" />
+  <tag name="GMPE" value="GMPE::Youngs97_interface" desc="GMPE type" />
+  <tag name="bias" value="0.00 0.00 0.00 0.00 0.00 " desc="magnitude bias (pga pgv psa03 psa10 psa30 )" />
+  <tag name="bias_log_amp" value="yes" desc="Used log amp to compute bias?" />
+  <tag name="mi_bias" value="0.00" desc="magnitude bias for Intensity" />
+  <tag name="pga_max" value="37.55" desc="Max value of grid" />
+  <tag name="pgv_max" value="43.34" desc="Max value of grid" />
+  <tag name="mi_max" value="8.07" desc="Max value of grid" />
+  <tag name="psa03_max" value="82.61" desc="Max value of grid" />
+  <tag name="psa10_max" value="50.36" desc="Max value of grid" />
+  <tag name="psa30_max" value="9.60" desc="Max value of grid" />
+</info>
