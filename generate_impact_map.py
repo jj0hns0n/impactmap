@@ -108,7 +108,7 @@ if __name__ == '__main__':
     # Generate LaTeX document
     filename = create_map(event_name)
 
-    # Show
-    cmd = 'cp %s /var/www/.' % filename
+    # Copy to web area
+    cmd = 'cp %s /var/www/dampa' % filename
     os.system(cmd)
 
