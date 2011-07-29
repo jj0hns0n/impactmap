@@ -156,6 +156,20 @@ class TestCase(unittest.TestCase):
         assert b == B, msg
 
 
+    def test_equator_example(self):
+        """Distance and bearing of real example (near equator) are correct
+        """
+
+        # Test data from http://www.movable-type.co.uk/scripts/latlong.html
+        D = 11448.0959593 # True Distance [m]
+
+        p1 = Point(latitude=-0.59, longitude=117.10)
+        p2 = Point(latitude=-0.50, longitude=117.15)
+
+        d = p1.distance_to(p2)
+        msg = 'Dist to point failed %f. Expected %f' % (d, D)
+        assert numpy.allclose(d, D, rtol=1.0e-3), msg
+
 #-------------------------------------------------------------
 
 if __name__ == "__main__":
