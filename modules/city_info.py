@@ -45,7 +45,7 @@ def city_info(R, B, path, eve_info):
         for i in range(len(A)):
             start = Point(latitude=A['lat'][i], longitude=A['lon'][i])
             end = Point(latitude=eve_lat, longitude=eve_lon)
-            dis = start.distance_to(end)
+            dis = start.distance_to(end)/1000
             if dis < min_dist:
                 min_dist = dis
                 index = i

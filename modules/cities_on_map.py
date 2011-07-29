@@ -31,8 +31,8 @@ def cities_on_map(A, distance_limit=100):
         for i in range(len(T)):
             k = T[i]  # Index of other city
             start = Point(latitude=A['lat'][b], longitude=A['lon'][b])  # Anchor city
-            end = Point(latitude=A['lat'][k], longitude=A['lat'][k])    # Other city
-            r = start.distance_to(end)
+            end = Point(latitude=A['lat'][k], longitude=A['lon'][k])    # Other city
+            r = start.distance_to(end)/1000  # Calculate distance and convert to km
             if r >= distance_limit:
                 # Select city i because it is sufficiently far away from anchor city
                 T2 += [(k)]
