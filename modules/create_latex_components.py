@@ -140,7 +140,7 @@ def generate_exposure_table(event_info, pop_expo):
   \multicolumn{9}{|c|}{\rule{0pt}{4mm} \Large \textbf{Perkiraan penduduk terpapar pada tingkat getaran yang berbeda}} \\
    \hline
   \hline
-  \textbf{Intensitas} &
+  \textbf{Intensitas (MMI)} &
   \cell{II}{II} &
   \cell{III}{III} &
   \cell{IV}{IV} &
@@ -149,7 +149,7 @@ def generate_exposure_table(event_info, pop_expo):
   \cell{VII}{VII} &
   \cell{VIII}{VIII} &
   \cell{IX}{IX}\\ \hline
-  \textbf{Populasi} &
+  \textbf{Penduduk (k = x1000)} &
   0 & 6921 & 8864 & 1367 & 472 & 16 & 0 & 0 \\ \hline
   \textbf{Persepsi Gemetar} &
   Lemah & Lemah & Cahaya & Moderat & Kuat & Sangat Kuat & Parah & Keras   \\
@@ -179,7 +179,7 @@ def generate_exposure_table(event_info, pop_expo):
               'getaran berbeda}} \\\\ \n')
     fid.write('\\hline \n')
     fid.write('\\hline \n')
-    fid.write('\\textbf{Intensitas} & \n')
+    fid.write('\\textbf{Intensitas {\small (MMI)}} & \n')
     fid.write('\\cell{II}{II} & \n')
     fid.write('\\cell{III}{III} & \n')
     fid.write('\\cell{IV}{IV} & \n')
@@ -188,7 +188,7 @@ def generate_exposure_table(event_info, pop_expo):
     fid.write('\\cell{VII}{VII} & \n')
     fid.write('\\cell{VIII}{VIII} & \n')
     fid.write('\\cell{IX}{IX}\\\\ \\hline \n')
-    fid.write('\\textbf{Populasi} & \n')
+    fid.write('\\textbf{Penduduk {\small (k=x1000)}} & \n')
     fid.write('%s & %s & %s & %s & %s & %s & %s & %s \\\\ \hline'
               '\n' % (pop_str['II'],
                       pop_str['III'],
