@@ -76,8 +76,8 @@ def usage(shakedata_dir, shake_url):
 
 if __name__ == '__main__':
 
-    shakedata_dir = os.environ['SHAKEDATA']
-    library_dir = os.environ['IMPACTLIB']
+    shakedata_dir = os.path.expanduser(os.environ['SHAKEDATA'])
+    library_dir = os.path.expanduser(os.environ['IMPACTLIB'])
     shake_url = 'ftp://geospasial.bnpb.go.id'
 
     makedir('temp')
@@ -109,6 +109,6 @@ if __name__ == '__main__':
     filename = create_map(event_name)
 
     # Copy to web area
-    cmd = 'cp %s /var/www/dampa' % filename
+    cmd = 'cp -u %s /var/www/dampa' % filename
     os.system(cmd)
 
