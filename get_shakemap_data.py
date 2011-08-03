@@ -8,8 +8,9 @@ from utilities import makedir
 
 if __name__ == '__main__':
 
-    work_dir = makedir('/var/www/dampa/shakemap_data')
 
+    work_dir = makedir('/var/www/shakemap')
+    
     shakedata_dir = os.environ['SHAKEDATA']
     library_dir = os.environ['IMPACTLIB']
     shake_url = 'ftp://geospasial.bnpb.go.id'
@@ -56,6 +57,15 @@ if __name__ == '__main__':
     print ('Shakemap surface available in: %s/%s '
            'and %s/%s' % (work_dir, asc_filename, work_dir, tif_filename))
     print 'Shakemap contour available in: %s/%s' % (work_dir, shp_filename)
+
+    # Grab latest Shakemap image from BMKG. 
+    # WARNING: Ada Bahaya karena this one will always be the latest shakemap!!!!!!!!!!!!!!
+    # FIXME (Ole): Talk to BMKG about adding this to the data uploaded to BNPB with appropriate naming
+    cmd = 'wget -c http://www.bmkg.go.id/webxml/eqshakemap.jpg'
+    os.system(cmd)
+    
+    cmd = 'mv eqshakemap.jpg %s/shakemap_terkini.jpg' % work_dir
+    os.system(cmd)
 
     # View in QGIS
     #basemap = '%s/maps/Basemap_300dpi.tif' % library_dir
