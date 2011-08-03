@@ -7,3 +7,4 @@
 export SHAKEDATA=/home/nielso/shakedata
 export IMPACTLIB=/home/nielso/impactlib
 python generate_impact_map.py
+python get_shakemap_data.py

@@ -8,7 +8,7 @@ from utilities import makedir
 
 if __name__ == '__main__':
 
-    work_dir = makedir('shakemap_data')
+    work_dir = makedir('/var/www/dampa/shakemap_data')
 
     shakedata_dir = os.environ['SHAKEDATA']
     library_dir = os.environ['IMPACTLIB']
@@ -26,6 +26,7 @@ if __name__ == '__main__':
         sys.exit()
 
     event_name = get_shakemap_data(shake_url, event_name)
+    work_dir = makedir(os.path.join(work_dir, event_name))
 
     # Extract original shakemap information as GIS
     grd_filename = event_name + '.grd'
