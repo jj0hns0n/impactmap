@@ -28,3 +28,11 @@ def makedir(newdir):
             os.mkdir(newdir)
 
     return newdir
+
+
+def make_pdf_filename(event_name):
+    """Make pdf filename based on event name
+    """
+
+    filename = 'eartquake_impact_map_%s.pdf' % event_name
+    return filename

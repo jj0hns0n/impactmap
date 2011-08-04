@@ -13,7 +13,8 @@ from modules.mini_indonesia import mini_indonesia
 from modules.exposure import exposure
 from modules.create_latex_components import generate_event_header
 from modules.create_latex_components import generate_exposure_table
-from utilities import makedir
+from utilities import makedir, make_pdf_filename
+from config import shake_url, final_destination
 
 def calculate(shakedata_dir, library_dir, event_name):
     """Calculate exposure information
@@ -48,7 +49,7 @@ def create_map(event_name):
     """Assemble components into final exposure map
     """
 
-    filename = 'eartquake_impact_map_%s.pdf' % event_name
+    filename = make_pdf_filename(event_name)
     print 'Compiling map components into %s' % filename
 
     # Get static files
@@ -76,9 +77,9 @@ def usage(shakedata_dir, shake_url):
 
 if __name__ == '__main__':
 
+    work_dir = makedir(os.path.join(final_destination, 'dampa'))
     shakedata_dir = os.path.expanduser(os.environ['SHAKEDATA'])
     library_dir = os.path.expanduser(os.environ['IMPACTLIB'])
-    shake_url = 'ftp://geospasial.bnpb.go.id'
 
     makedir('temp')
     makedir('logs')
@@ -94,7 +95,15 @@ if __name__ == '__main__':
         print usage(shakedata_dir, shake_url)
         sys.exit()
 
-    event_name = get_shakemap_data(shake_url, event_name)
+    event_name = get_shakemap_data(shake_url, name=event_name,
+                                   shakedata_dir=shakedata_dir)
+
+    # Check if this was already made
+    filename = make_pdf_filename(event_name)
+    if os.path.isfile(os.path.join(work_dir, filename)):
+        print ('Impact map %s already exists in %s. No need to compute'
+               % (filename, work_dir))
+        sys.exit()
 
     # Calculate
     print 'Calculating population exposure'
@@ -109,6 +118,6 @@ if __name__ == '__main__':
     filename = create_map(event_name)
 
     # Copy to web area
-    cmd = 'cp -u %s /var/www/dampa' % filename
+    cmd = 'cp -u %s %s' % (filename, work_dir)
     os.system(cmd)
 

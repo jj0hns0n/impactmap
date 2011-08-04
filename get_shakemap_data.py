@@ -4,16 +4,14 @@
 import sys
 import os
 from network.download_shakemap import get_shakemap_data
+from config import shake_url, final_destination
 from utilities import makedir
 
 if __name__ == '__main__':
 
-
-    work_dir = makedir('/var/www/shakemap')
-    
-    shakedata_dir = os.environ['SHAKEDATA']
-    library_dir = os.environ['IMPACTLIB']
-    shake_url = 'ftp://geospasial.bnpb.go.id'
+    work_dir = makedir(os.path.join(final_destination, 'shakemap'))
+    shakedata_dir = os.path.expanduser(os.environ['SHAKEDATA'])
+    library_dir = os.path.expanduser(os.environ['IMPACTLIB'])
 
     # Get shakemap event data
     if len(sys.argv) == 1:
@@ -26,8 +24,15 @@ if __name__ == '__main__':
         print usage(shakedata_dir, shake_url)
         sys.exit()
 
-    event_name = get_shakemap_data(shake_url, event_name)
+    event_name = get_shakemap_data(shake_url, name=event_name,
+                                   shakedata_dir=shakedata_dir)
     work_dir = makedir(os.path.join(work_dir, event_name))
+
+    # Check if this was already made
+    if os.path.isfile(os.path.join(work_dir, event_name + '.grd')):
+        print ('Shakemap %s.grd already exists in %s. '
+               'No need to download' % (event_name, work_dir))
+        sys.exit()
 
     # Extract original shakemap information as GIS
     grd_filename = event_name + '.grd'
@@ -58,12 +63,12 @@ if __name__ == '__main__':
            'and %s/%s' % (work_dir, asc_filename, work_dir, tif_filename))
     print 'Shakemap contour available in: %s/%s' % (work_dir, shp_filename)
 
-    # Grab latest Shakemap image from BMKG. 
+    # Grab latest Shakemap image from BMKG.
     # WARNING: Ada Bahaya karena this one will always be the latest shakemap!!!!!!!!!!!!!!
     # FIXME (Ole): Talk to BMKG about adding this to the data uploaded to BNPB with appropriate naming
     cmd = 'wget -c http://www.bmkg.go.id/webxml/eqshakemap.jpg'
     os.system(cmd)
-    
+
     cmd = 'mv eqshakemap.jpg %s/shakemap_terkini.jpg' % work_dir
     os.system(cmd)
 

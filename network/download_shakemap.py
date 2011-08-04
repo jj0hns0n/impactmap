@@ -4,7 +4,6 @@
 import os
 import urllib2
 
-shakedata_dir = os.environ['SHAKEDATA']
 
 class Shakemap_url:
     """Class to abstract url pairs for shakemap data
@@ -27,7 +26,7 @@ class Shakemap_url:
         assert self.event_name in self.inputdata_url
         assert self.event_name in self.outputdata_url
 
-    def download_data(self):
+    def download_data(self, shakedata_dir):
         """Download input and output shakemap data
         """
 
@@ -112,11 +111,11 @@ def get_shakemap_urls(url, name=None):
                'nothing.' % (name, url))
         raise Exception(msg)
 
-    print 'Found event %s' % name
+    print 'Found event %s in %s' % (name, url)
     return Shakemap_url(name, inputdata_url, outputdata_url)
 
 
-def _get_shakemap_data(url, name=None):
+def _get_shakemap_data(url, name=None, shakedata_dir=None):
     """Get shakemap from website
 
     Input
@@ -134,17 +133,19 @@ def _get_shakemap_data(url, name=None):
     """
 
     S = get_shakemap_urls(url, name)
-    S.download_data()
+    S.download_data(shakedata_dir)
     return S.event_name
 
 
-def get_shakemap_data(url, name=None):
+def get_shakemap_data(url, name=None, shakedata_dir=None):
     """Get shakemap from website unless already downloaded
 
     Input
         url: URL where shakemap data is located
         name: Optional argument specifying which one is requested.
               If omitted, the latest will be used.
+        shakedata_dir: Optional argument specifying where to store shakedata
+                       Default is './shakedata'
 
     If shakemap has already been downloaded, use local copy
     """
@@ -165,13 +166,23 @@ def get_shakemap_data(url, name=None):
             # Else use name as provided
             event_name = name
 
-    # If it doesn't exist, try to get it from web site
-    if not os.path.isdir((os.path.join(shakedata_dir, event_name))):
-        event_name = _get_shakemap_data(url, event_name)
-
     # Clean event_name just in case someone pasted a dirname
     if event_name.endswith('/'):
         event_name = event_name[:-1]
+
+    if shakedata_dir is None:
+        shakedata_dir = './shakedata'
+
+    # If it doesn't already exist, try to get it from web site
+    if os.path.isdir((os.path.join(shakedata_dir, event_name))):
+        print ('Event %s already exists in %s, no need to download'
+               % (event_name, shakedata_dir))
+    else:
+        print ('Downloading event %s from %s to %s'
+               % (event_name, url, shakedata_dir))
+        event_name = _get_shakemap_data(url,
+                                        name=event_name,
+                                        shakedata_dir=shakedata_dir)
 
     return event_name
 
