@@ -121,3 +121,15 @@ if __name__ == '__main__':
     cmd = 'cp -u %s %s' % (filename, work_dir)
     os.system(cmd)
 
+    # Cope to common name for latest (this way the pdf viewer (e.g. evince)
+    # will automatically update view). Soft links won't work but a copy is OK.
+    latest_name = 'latest_earthquake_impact_map.pdf'
+    cmd = 'cd %s; /bin/rm -f %s; cp %s %s' % (work_dir,
+                                              latest_name,
+                                              filename,
+                                              latest_name)
+
+    os.system(cmd)
+
+
+
