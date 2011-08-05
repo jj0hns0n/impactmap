@@ -27,7 +27,10 @@ def city_table(city_info, R, basename='comp2'):
     'D 0 1p'+'\n'+
     'END')
     roman_no = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX']
-    rgb = ['255/0/255','255/0/255','32/159/255', '0/207/255', '85/255/255', '170/255/255', '255/240/0', '255/168/0', '255/112/0', '255/0/0'];
+
+    # NOTE (Ole): These these must always be the same as those used in
+    # the earthquake_impact_map.tex fixture
+    rgb = ['255/0/255', '255/0/255', '32/159/255', '0/207/255', '85/255/255', '170/255/255', '255/240/0', '255/168/0', '255/112/0', '255/0/0'];
 
     N = min(len(city_info), 8)
     for i in xrange(N):

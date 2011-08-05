@@ -164,8 +164,6 @@ def generate_exposure_table(event_info, pop_expo):
         x = pop_expo[key]
         pop_str[key] = '%i' % int(x/1000)
 
-
-
     # Generate LaTeX code
     filename = 'exposure_table.tex'  # Must match main LaTeX file
 
