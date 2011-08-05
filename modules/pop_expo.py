@@ -54,20 +54,15 @@ def pop_expo(event_info,A,path):
            'with original landscape grid. Got %f expected %f' % (dy, dl))
     assert np.allclose(dy, dl, rtol=1.0e-12, atol=1.0e-12), msg
 
-
-
     [X,Y] = np.meshgrid(x,y)
 
     Z_pop = ls[row_low:row_high, col_low:col_high]
     Z_pop[Z_pop == -9999] = np.NaN
 
-
     # Get MMI point data
     points = A[:,0:2]
     values = A[:,4]
-    Z_I = griddata(points, values, (X,Y), method='cubic')
-
-    #print 'len', len(X),len(Z_I)
+    Z_I = griddata(points, values, (X, Y), method='cubic')
 
     I = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -77,17 +72,13 @@ def pop_expo(event_info,A,path):
         index = np.nonzero((Z_I >= i - 0.5) & (Z_I < i + 0.5))
         k = k+1
 
-        # Temporary debug print statements
-        #print 'k', k, 'i', i
-        #print 'index', index
-        #print 'sum', np.nansum(Z_pop[index])
         # Round affected population to the nearest 1000
         x = np.nansum(Z_pop[index])
         pop_expo[k] = round(x/1000)*1000
 
-    pop_expo [np.isnan(pop_expo)] = 0
+    pop_expo[np.isnan(pop_expo)] = 0
     I = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
-    pop_expo = dict(zip(I,pop_expo))
+    pop_expo = dict(zip(I, pop_expo))
 
     return pop_expo, R
 

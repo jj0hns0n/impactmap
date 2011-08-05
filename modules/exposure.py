@@ -11,10 +11,10 @@ def exposure(expo, path, R, basename='comp4'):
     """
 
     R = '-R'+str(R[0])+'/'+str(R[1])+'/'+str(R[2])+'/'+str(R[3])
-    J = "-JM4.75i"
+    J = '-JM4.75i'
     mi_scale_cpt = path +'/palettes/mi_scale.cpt'
     roman = ['II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']
-    pop=range(9)
+    pop = range(9)
     k = -1
     for i in roman:
         k = k+1
@@ -22,10 +22,10 @@ def exposure(expo, path, R, basename='comp4'):
         if expo[i]>1000:
           pop[k]= round(expo[i]/1000)
 
-          pop[k]= "%0.0f"%pop[k]+'k'
+          pop[k]= '%0.0f' % pop[k] + 'k'
 
         else:
-          pop[k] = "%0.0f"%expo[i]
+          pop[k] = '%0.0f' % expo[i]
 
     #print pop
     font = '1'

@@ -162,10 +162,8 @@ def generate_exposure_table(event_info, pop_expo):
     pop_str = {}
     for key in pop_expo:
         x = pop_expo[key]
-        if x > 1000:
-            pop_str[key] = '%ik' % round(x/1000)
-        else:
-            pop_str[key] = '%i' % x
+        pop_str[key] = '%i' % int(x/1000)
+
 
 
     # Generate LaTeX code
@@ -179,7 +177,7 @@ def generate_exposure_table(event_info, pop_expo):
               'getaran berbeda}} \\\\ \n')
     fid.write('\\hline \n')
     fid.write('\\hline \n')
-    fid.write('\\textbf{Intensitas {\small (MMI)}} & \n')
+    fid.write('\\textbf{Intensitas {\scriptsize (MMI)}} & \n')
     fid.write('\\cell{II}{II} & \n')
     fid.write('\\cell{III}{III} & \n')
     fid.write('\\cell{IV}{IV} & \n')
@@ -188,7 +186,7 @@ def generate_exposure_table(event_info, pop_expo):
     fid.write('\\cell{VII}{VII} & \n')
     fid.write('\\cell{VIII}{VIII} & \n')
     fid.write('\\cell{IX}{IX}\\\\ \\hline \n')
-    fid.write('\\textbf{Penduduk {\small (k=x1000)}} & \n')
+    fid.write('\\textbf{Penduduk {\scriptsize (x1000)}} & \n')
     fid.write('%s & %s & %s & %s & %s & %s & %s & %s \\\\ \hline'
               '\n' % (pop_str['II'],
                       pop_str['III'],

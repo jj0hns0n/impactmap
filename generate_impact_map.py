@@ -10,7 +10,6 @@ from modules.cities_on_map import cities_on_map
 from modules.region_map import region_map
 from modules.city_table import city_table
 from modules.mini_indonesia import mini_indonesia
-from modules.exposure import exposure
 from modules.create_latex_components import generate_event_header
 from modules.create_latex_components import generate_exposure_table
 from utilities import makedir, make_pdf_filename
@@ -25,7 +24,6 @@ def calculate(shakedata_dir, library_dir, event_name):
     C = city_info(R, A, library_dir, event_info)
     cities_on_map(C, distance_limit=100)
     vec = (event_info['lat'], event_info['lon'])
-    #hist_eve = list_historical_events(vec, library_dir)
     calculate_location_info(event_info, C)
     return event_info, pop_expo, A, R, C
 
@@ -38,7 +36,6 @@ def create_mapcomponents(event_info, event_name, pop_exp, A, R, C):
                shakedata_dir, event_name, library_dir, basename='exposure_map')
     city_table(C, R, basename='city_legend')
     mini_indonesia(R, library_dir, basename='mini_map')
-    exposure(pop_expo, library_dir, R, basename='exposure_legend')
 
     # LaTeX contents
     generate_event_header(event_info)
