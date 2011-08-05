@@ -162,7 +162,13 @@ def generate_exposure_table(event_info, pop_expo):
     pop_str = {}
     for key in pop_expo:
         x = pop_expo[key]
-        pop_str[key] = '%i' % int(x/1000)
+        if x == 0:
+            pop_str[key] = '$0$'
+        elif x <= 1000:
+            pop_str[key] = '$\le1$'
+        else:
+            pop_str[key] = '$%i$' % int(x/1000)
+
 
     # Generate LaTeX code
     filename = 'exposure_table.tex'  # Must match main LaTeX file
