@@ -8,3 +8,5 @@ logs/
 temp/
 install/*.bz2
 install/GMT4.5.6/
+impactlib/
+output/
