@@ -1,0 +1,10 @@
+*.pyc
+.DS_Store
+.vagrant
+Vagrantfile
+.gmt_bb_info
+.gmtcommands4
+logs/
+temp/
+install/*.bz2
+install/GMT4.5.6/
