@@ -208,4 +208,3 @@ def generate_exposure_table(event_info, pop_expo):
     fid.close()
 
     return filename
-

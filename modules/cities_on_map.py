@@ -63,11 +63,3 @@ def cities_on_map(A, distance_limit=100):
     for i in index:
         cmd = 'cat << END >> %s' % city_filename + '\n'+''+str(A['lon'][i])+' '+str(A['lat'][i])+' 15 0 0 BR '+A['name'][i]+'\n'+'END'
         os.system(cmd)
-
-
-
-
-
-
-
-

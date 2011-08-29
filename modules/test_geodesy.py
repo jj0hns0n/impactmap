@@ -176,4 +176,3 @@ if __name__ == "__main__":
     mysuite = unittest.makeSuite(TestCase, 'test')
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(mysuite)
-

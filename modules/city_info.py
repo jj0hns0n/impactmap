@@ -79,10 +79,3 @@ def city_info(R, B, path, eve_info):
     city = np.flipud(city)
 
     return city
-
-
-
-
-
-
-

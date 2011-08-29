@@ -54,6 +54,3 @@ def calculate_location_info(event_info, city_info):
     s = 'Berjarak %i km, %i$^\circ$ Arah %s %s' % (d/1000, b,
                                                    direction, city_name)
     event_info['location_string'] = s
-
-
-

@@ -81,8 +81,3 @@ def pop_expo(event_info,A,path):
     pop_expo = dict(zip(I, pop_expo))
 
     return pop_expo, R
-
-
-
-
-

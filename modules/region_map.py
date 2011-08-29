@@ -61,6 +61,3 @@ def region_map(event_info, A, R,
 
     # FIXME (Ole): I don't think we need this
     os.system('cp %s.pdf ~/' % basename)
-
-
-

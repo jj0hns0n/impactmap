@@ -51,6 +51,4 @@ def event_info(shakedata_dir, event_name):
     event_info['depth'] = dep.nodeValue
     event_info['location'] = loc.nodeValue
 
-
     return event_info, A
-
